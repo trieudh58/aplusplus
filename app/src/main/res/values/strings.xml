@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">RevProject</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_alarm_list">AlarmListActivity</string>
+    <string name="title_activity_alarm_detail">AlarmDetailActivity</string>
+
+    <string name="details_alarm_name">Alarm Name</string>
+    <string name="details_sunday">Su</string>
+    <string name="details_monday">Mo</string>
+    <string name="details_tuesday">Tu</string>
+    <string name="details_wednesday">We</string>
+    <string name="details_thursday">Th</string>
+    <string name="details_friday">Fr</string>
+    <string name="details_saturday">Sa</string>
+    <string name="details_repeat">Repeat</string>
+    <string name="details_alarm_tone">Alarm Tone</string>
+    <string name="details_alarm_tone_default">Select an alarm tone</string>
+</resources>
