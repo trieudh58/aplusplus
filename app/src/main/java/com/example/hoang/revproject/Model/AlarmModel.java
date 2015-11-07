@@ -1,4 +1,4 @@
-package com.example.hoang.revproject;
+package com.example.hoang.revproject.Model;
 
 import android.net.Uri;
 
@@ -19,7 +19,7 @@ public class AlarmModel {
     public int timeHour;
     public int timeMinute;
     private boolean repeatingDay[];
-    public boolean repeatAllWeek;
+    public int volume;
     public Uri alarmTone;
     public String Vocabulary;
     public boolean isEnabled;
@@ -34,5 +34,16 @@ public class AlarmModel {
 
     public boolean getRepeatingDay(int dayOfWeek) {
         return repeatingDay[dayOfWeek];
+    }
+
+    public boolean isRepeatingDay(){
+        boolean isrepeat = false;
+        for (int i = 0; i < 7; i++){
+            if (getRepeatingDay(i) == true) {
+                isrepeat = true;
+                break;
+            }
+        }
+        return isrepeat;
     }
 }

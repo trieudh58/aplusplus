@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="timeToNotify">
+        <item name="30">Every 30 minutes</item>
+        <item name="60">Every 1 hour</item>
+        <item name="120">Every 2 hours</item>
+        <item name="180">Every 3 hours</item>
+        <item name="240">Every 4 hours</item>
+        <item name="300">Every 5 hours</item>
+    </string-array>
+
+    <string-array name="timeToNotifyValues">
+        <item name="30">1800000</item>
+        <item name="60">3600000</item>
+        <item name="120">7200000</item>
+        <item name="180">10800000</item>
+        <item name="240">14400000</item>
+        <item name="300">18000000</item>
+    </string-array>
+
+    <string-array name="numberOfWords">
+        <item name="1">One Word</item>
+        <item name="2">Two Words</item>
+        <item name="3">Three Words</item>
+        <item name="4">Four Words</item>
+        <item name="5">Five Words</item>
+    </string-array>
+
+    <string-array name="numberOfWordsValues">
+        <item name="1">1</item>
+        <item name="2">2</item>
+        <item name="3">3</item>
+        <item name="4">4</item>
+        <item name="5">5</item>
+    </string-array>
+</resources>

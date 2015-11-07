@@ -1,4 +1,4 @@
-package com.example.hoang.revproject;
+package com.example.hoang.revproject.Model;
 
 /**
  * Created by hoang on 10/24/2015.

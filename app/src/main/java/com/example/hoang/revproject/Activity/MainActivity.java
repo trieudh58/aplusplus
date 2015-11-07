@@ -1,9 +1,7 @@
-package com.example.hoang.revproject;
+package com.example.hoang.revproject.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
+
+import com.example.hoang.revproject.Adapter.HomeAdapter;
+import com.example.hoang.revproject.Model.AlarmDBHelper;
+import com.example.hoang.revproject.Model.HomeItem;
+import com.example.hoang.revproject.Model.VocabularyModel;
+import com.example.hoang.revproject.R;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private HomeAdapter adapter;
     private GridView grid;
     private Toolbar toolbar;
+    private AlarmDBHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new HomeAdapter(MainActivity.this, arr);
         grid = (GridView) findViewById(R.id.gv);
         grid.setAdapter(adapter);
+        dbHelper = new AlarmDBHelper(this);
     }
 
     public void initial(){
@@ -54,10 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initData();
+
     }
 
     public void initData(){
-        HomeItem item1 = new HomeItem("Notifications", R.drawable.thienhan);
+        HomeItem item1 = new HomeItem("My Vocabulary", R.drawable.thienhan);
         HomeItem item2 = new HomeItem("Listening", R.drawable.thienhan);
         HomeItem item3 = new HomeItem("Games", R.drawable.thienhan);
         HomeItem item4 = new HomeItem("Alarm", R.drawable.thienhan);
@@ -68,6 +75,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         arr.add(item4);
 
         adapter.notifyDataSetChanged();
+        VocabularyModel model3 = new VocabularyModel("Music", "/'mju:zik/", "Danh từ \n" +
+                "Nhạc, âm nhạc\n" +
+                "âm nhạc dân tộc\n" +
+                "o have an ear for music\n" +
+                "Có năng khiếu về âm nhạc\n" +
+                "to set a poem to music\n" +
+                "phổ nhạc một bài thơ", "@drawable/alarm","music");
+        VocabularyModel model4 = new VocabularyModel("Friend", "/frend/", "Danh từ \n" +
+                "Người bạn\n" +
+                "Người quen sơ, ông bạn\n" +
+                "Người ủng hộ, người giúp đỡ\n" +
+                "Cái giúp ích", "@drawable/alarm1","friend");
+        dbHelper.createVocab(model3);
+        dbHelper.createVocab(model4);
     }
 
     public void addEvents(){
@@ -75,9 +96,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
+                    case 0:
+                        Intent intent1 = new Intent(MainActivity.this, MyVocabulary.class);
+                        startActivity(intent1);
+                        break;
                     case 3:
                         Intent intent = new Intent(MainActivity.this, AlarmListActivity.class);
                         startActivity(intent);
+                        break;
                 }
             }
         });
@@ -119,22 +145,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (item.getItemId()){
+            case R.id.nav_settings:
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

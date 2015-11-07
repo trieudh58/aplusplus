@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_marginTop="30dp"
     android:isScrollContainer="true" >
 
     <RelativeLayout
@@ -16,7 +17,7 @@
         <TimePicker
             android:id="@+id/alarmTimePicker"
             android:layout_width="match_parent"
-            android:background="#c6bfbf"
+            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
@@ -57,13 +58,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/Monday"
+                android:layout_marginRight="5dp"
                 android:gravity="center"
+                android:background="@drawable/button_background"
                 android:text="@string/details_monday"
                 android:paddingRight="5dp"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/button_background"
                 android:gravity="center"
                 android:id="@+id/Tuesday"
                 android:text="@string/details_tuesday"
@@ -72,15 +77,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="5dp"
                 android:gravity="center"
                 android:id="@+id/Wednesday"
+                android:background="@drawable/button_background"
                 android:text="@string/details_wednesday"
                 android:paddingRight="5dp"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="5dp"
                 android:id="@+id/Thursday"
+                android:background="@drawable/button_background"
                 android:gravity="center"
                 android:text="@string/details_thursday"
                 android:paddingRight="5dp"/>
@@ -88,15 +97,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="5dp"
                 android:id="@+id/Friday"
                 android:gravity="center"
+                android:background="@drawable/button_background"
                 android:text="@string/details_friday"
                 android:paddingRight="5dp"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="5dp"
                 android:id="@+id/Saturday"
+                android:background="@drawable/button_background"
                 android:gravity="center"
                 android:text="@string/details_saturday"
                 android:paddingRight="5dp"/>
@@ -104,7 +117,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="5dp"
                 android:gravity="center"
+                android:background="@drawable/button_background"
                 android:id="@+id/Sunday"
                 android:text="@string/details_sunday"
                 android:paddingRight="5dp"/>
@@ -115,6 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:clickable="true"
             android:layout_below="@+id/divider3"
             android:background="@drawable/view_touch_selector"
             android:orientation="vertical" >
@@ -137,12 +153,37 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/view_touch_selector"
+            android:clickable="true"
+            android:id="@+id/alarm_volume"
+            android:layout_below="@+id/divider5">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alarm_volume"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+
         <View
             android:id="@+id/divider2"
             style="@style/Divider"
             android:layout_alignParentLeft="true"
+            android:layout_below="@+id/alarm_volume" />
+        <View
+            android:id="@+id/divider5"
+            style="@style/Divider"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/alarm_ringtone_container" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,11 +200,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="10">
-                <Button
+                <ImageButton
                     android:layout_width="0dp"
                     android:layout_weight="2"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:text="..."
+                    android:src="@drawable/alarm"
                     android:id="@+id/btnChooseWord"
                     android:textStyle="bold" />
                 <android.support.design.widget.TextInputLayout

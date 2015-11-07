@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Notification"
+        android:key="notification">
+        <SwitchPreference
+            android:key="checkBox"
+            android:title="Vocabulary Notification"
+            android:summary="It allows to enable or disable the notification"
+            android:defaultValue="true">
+        </SwitchPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Notification Details"
+        android:key="detail">
+        <ListPreference
+            android:title="Repeating Time"
+            android:key="repeating_time"
+            android:summary="Choose a time that you want to repeat every notification"
+            android:defaultValue="30"
+            android:entries="@array/timeToNotify"
+            android:entryValues="@array/timeToNotifyValues"
+            android:dependency="checkBox">
+        </ListPreference>
+
+        <ListPreference
+            android:title="How many words you want to learn?"
+            android:summary="This is amount of word that you have to learn per day"
+            android:key="repeating_word"
+            android:defaultValue="2"
+            android:entries="@array/numberOfWords"
+            android:entryValues="@array/numberOfWordsValues"
+            android:dependency="checkBox">
+        </ListPreference>
+    </PreferenceCategory>
+</PreferenceScreen>

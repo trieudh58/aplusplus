@@ -1,4 +1,4 @@
-package com.example.hoang.revproject;
+package com.example.hoang.revproject.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
+import com.example.hoang.revproject.Model.HomeItem;
+import com.example.hoang.revproject.R;
+
 import java.util.ArrayList;
 
 /**

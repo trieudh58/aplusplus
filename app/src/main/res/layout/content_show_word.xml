@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_show_word"
+    tools:context="com.example.hoang.revproject.Activity.ShowWordActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wordName"
+        android:layout_marginTop="10dp"
+        android:text="Happy"
+        android:textColor="@color/colorAccent"
+        android:textSize="30dp"
+        android:layout_gravity="top|start"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/wordPronoun"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/wordName"
+        android:text="[/ˈhæpi/]"
+        android:textSize="30dp"/>
+
+    <ToggleButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/wordSound"
+        android:background="@drawable/loudspeaker_check"
+        android:textOff=""
+        android:textOn=""
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_alignParentRight="true"/>
+
+    <View
+        android:id="@+id/divider"
+        style="@style/Divider"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/wordName" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/wordImage"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/alarm"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wordImage"
+        android:id="@+id/wordDescrip"
+        android:layout_marginTop="30dp"
+        android:text="hello"/>
+
+</RelativeLayout>

@@ -19,4 +19,11 @@
     <string name="details_repeat">Repeat</string>
     <string name="details_alarm_tone">Alarm Tone</string>
     <string name="details_alarm_tone_default">Select an alarm tone</string>
+    <string name="alarm_screen_instruction">Enter Your Vocabulary</string>
+    <string name="alarm_volume">Alarm Volume</string>
+    <string name="alarm_screen_name">Alarm!</string>
+    <string name="alarm_screen_button">Wake Up</string>
+    <string name="alarm_screen_time">00 : 00</string>
+    <string name="title_activity_show_word">ShowWordActivity</string>
+    <string name="title_activity_my_vocabulary">MyVocabulary</string>
 </resources>
