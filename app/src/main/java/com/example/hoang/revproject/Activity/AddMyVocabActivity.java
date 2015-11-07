@@ -60,7 +60,6 @@ public class AddMyVocabActivity extends AppCompatActivity {
                 String mean = editmean.getText().toString();
                 String pronoun = editpronoun.getText().toString();
 
-                MyVocabularyModel model = new MyVocabularyModel();
                 model.setWord(word);
                 model.setMean(mean);
                 model.setPronoun(pronoun);
