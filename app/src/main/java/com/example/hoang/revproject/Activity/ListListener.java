@@ -37,17 +37,16 @@ public class ListListener extends AppCompatActivity {
         mangBaiNghe.add("Bài 6: Music");
         mangBaiNghe.add("Bài 7: Personality");
 
-        ArrayAdapter adapter = new ArrayAdapter( this, android.R.layout.simple_expandable_list_item_1, mangBaiNghe);
+        ArrayAdapter adapter = new ArrayAdapter( this, android.R.layout.simple_list_item_1, mangBaiNghe);
         listListen.setAdapter(adapter);
 
         listListen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if(position==0) {
-                        Intent bai1 = new Intent(ListListener.this, BaiNghe1.class);
-                        startActivity(bai1);
-                    }
-
+                if(position==0) {
+                    Intent bai1 = new Intent(ListListener.this, BaiNghe1.class);
+                    startActivity(bai1);
+                }
             }
         });
     }
