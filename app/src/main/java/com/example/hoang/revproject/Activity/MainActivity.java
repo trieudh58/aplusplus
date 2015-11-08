@@ -64,10 +64,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void initData(){
-        HomeItem item1 = new HomeItem("My Vocabulary", R.drawable.thienhan);
-        HomeItem item2 = new HomeItem("Listening", R.drawable.thienhan);
-        HomeItem item3 = new HomeItem("Games", R.drawable.thienhan);
-        HomeItem item4 = new HomeItem("Alarm", R.drawable.thienhan);
+        HomeItem item1 = new HomeItem("My Vocabulary", R.drawable.words_icon);
+        HomeItem item2 = new HomeItem("Listening", R.drawable.listen_icon);
+        HomeItem item3 = new HomeItem("Games", R.drawable.games_icon);
+        HomeItem item4 = new HomeItem("Alarm", R.drawable.alarms_icon);
 
         arr.add(item1);
         arr.add(item2);
@@ -97,12 +97,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
-                        Intent intent1 = new Intent(MainActivity.this, MyVocabulary.class);
+                        Intent intent0 = new Intent(MainActivity.this, MyVocabulary.class);
+                        startActivity(intent0);
+                        break;
+                    case 1:
+                        Intent intent1 = new Intent(MainActivity.this, ListListener.class);
                         startActivity(intent1);
                         break;
                     case 3:
-                        Intent intent = new Intent(MainActivity.this, AlarmListActivity.class);
-                        startActivity(intent);
+                        Intent intent3 = new Intent(MainActivity.this, AlarmListActivity.class);
+                        startActivity(intent3);
                         break;
                 }
             }

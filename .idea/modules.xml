@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RevProject.iml" filepath="$PROJECT_DIR$/RevProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aplusplus.iml" filepath="$PROJECT_DIR$/aplusplus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

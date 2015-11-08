@@ -66,8 +66,14 @@
             android:label="@string/title_activity_my_vocabulary"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".Activity.AddMyVocabActivity"
-            android:theme="@style/MyAppDialog">
+        <activity
+            android:name=".Activity.AddMyVocabActivity"
+            android:theme="@style/MyAppDialog" >
+        </activity>
+        <activity
+            android:name=".Activity.ListListener"
+            android:label="@string/title_activity_list_listener"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

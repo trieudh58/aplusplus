@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:id="@+id/linearLayout">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/btn_stop"
+            android:layout_marginRight="5dp"
+            android:id="@+id/btn_stop" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/btn_prev"
+            android:layout_marginRight="10dp"
+            android:id="@+id/btn_prev" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/btn_play"
+            android:layout_marginRight="10dp"
+            android:id="@+id/btn_play" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/btn_next"
+            android:layout_marginRight="5dp"
+            android:id="@+id/btn_next" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/btn_reapeat"
+            android:layout_marginRight="5dp"
+            android:id="@+id/btn_reapeat" />
+    </LinearLayout>
+
+    <SeekBar
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/SeekBar"
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:indeterminate="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="..."
+        android:id="@+id/TxTStart"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignLeft="@+id/SeekBar"
+        android:layout_alignStart="@+id/SeekBar"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="..."
+        android:id="@+id/TxtEnd"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignRight="@+id/SeekBar"
+        android:layout_alignEnd="@+id/SeekBar"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:layout_width="255dp"
+        android:layout_height="250dp"
+        android:id="@+id/Image_Topic"
+        android:layout_marginTop="65dp"
+        android:visibility="visible"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/btn_like"
+        android:src="@drawable/family" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_like"
+        android:src="@drawable/btn_like"
+        android:layout_above="@+id/SeekBar"
+        android:layout_marginLeft="10dp" />
+
+    <ToggleButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_show"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/btn_show"
+        android:layout_above="@+id/SeekBar"
+        android:layout_toEndOf="@+id/Image_Topic" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Family"
+        android:id="@+id/Txt_Topic"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true" />
+
+    <ScrollView
+        android:layout_width="349dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/scrollView">
+        <TextView
+            android:layout_width="349dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Txt_Transcrip"
+            android:visibility="invisible" />
+    </ScrollView>
+
+</RelativeLayout>
