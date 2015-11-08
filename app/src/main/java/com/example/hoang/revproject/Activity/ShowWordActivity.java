@@ -42,6 +42,8 @@ public class ShowWordActivity extends AppCompatActivity {
     public void getControls(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dbHelper = new AlarmDBHelper(this);
         arrVocab = dbHelper.getListVocabs();
         wordName = (TextView) findViewById(R.id.wordName);

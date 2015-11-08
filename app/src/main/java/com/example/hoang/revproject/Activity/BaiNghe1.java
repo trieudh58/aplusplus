@@ -38,6 +38,8 @@ public class BaiNghe1 extends AppCompatActivity {
         setContentView(R.layout.activity_bai_nghe1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btn_stop = (ImageView) findViewById(R.id.btn_stop);
         btn_prev = (ImageView) findViewById(R.id.btn_prev);

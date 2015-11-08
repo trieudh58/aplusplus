@@ -26,6 +26,8 @@ public class ListListener extends AppCompatActivity {
         setContentView(R.layout.activity_list_listener);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listListen = (ListView) findViewById(R.id.list_listen);
 
         ArrayList<String> mangBaiNghe = new ArrayList<String>();

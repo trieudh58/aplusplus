@@ -37,7 +37,8 @@
         <activity
             android:name=".Activity.AlarmDetailActivity"
             android:label="@string/title_activity_alarm_detail"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Activity.AlarmListActivity">
         </activity>
         <activity
             android:name=".Activity.ChooseWord"
@@ -59,12 +60,14 @@
         <activity
             android:name=".Activity.ShowWordActivity"
             android:label="@string/title_activity_show_word"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Activity.MainActivity">
         </activity>
         <activity
             android:name=".Activity.MyVocabulary"
             android:label="@string/title_activity_my_vocabulary"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Activity.MainActivity">
         </activity>
         <activity
             android:name=".Activity.AddMyVocabActivity"
@@ -73,12 +76,14 @@
         <activity
             android:name=".Activity.ListListener"
             android:label="@string/title_activity_list_listener"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Activity.MainActivity">
         </activity>
 
         <activity android:name=".Activity.BaiNghe1"
             android:label="@string/title_activity_bai_nghe1"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Activity.ListListener">
         </activity>
     </application>
 
