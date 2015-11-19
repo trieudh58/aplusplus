@@ -15,12 +15,15 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.hoang.revproject.Adapter.HomeAdapter;
+import com.example.hoang.revproject.Helper.InitFakeData;
 import com.example.hoang.revproject.Model.AlarmDBHelper;
 import com.example.hoang.revproject.Model.HomeItem;
+import com.example.hoang.revproject.Model.MyVocabularyModel;
 import com.example.hoang.revproject.Model.VocabularyModel;
 import com.example.hoang.revproject.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GridView grid;
     private Toolbar toolbar;
     private AlarmDBHelper dbHelper;
+    private List<VocabularyModel> list = new ArrayList<VocabularyModel>();
 
 
     @Override
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void initial(){
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.words_icon);
+        toolbar.setTitle("Rev");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -75,20 +81,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         arr.add(item4);
 
         adapter.notifyDataSetChanged();
-        VocabularyModel model3 = new VocabularyModel("Music", "/'mju:zik/", "Danh từ \n" +
-                "Nhạc, âm nhạc\n" +
-                "âm nhạc dân tộc\n" +
-                "o have an ear for music\n" +
-                "Có năng khiếu về âm nhạc\n" +
-                "to set a poem to music\n" +
-                "phổ nhạc một bài thơ", "@drawable/alarm","music");
-        VocabularyModel model4 = new VocabularyModel("Friend", "/frend/", "Danh từ \n" +
-                "Người bạn\n" +
-                "Người quen sơ, ông bạn\n" +
-                "Người ủng hộ, người giúp đỡ\n" +
-                "Cái giúp ích", "@drawable/alarm1","friend");
-        dbHelper.createVocab(model3);
-        dbHelper.createVocab(model4);
+
+        InitFakeData initFakeData = new InitFakeData(this);
+        list = dbHelper.getListVocabs();
+        if (list.size() == 0) {
+            initFakeData.initData();
+        }
     }
 
     public void addEvents(){
@@ -139,7 +137,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -153,6 +152,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.nav_history:
+                Intent intent1 = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent1);
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

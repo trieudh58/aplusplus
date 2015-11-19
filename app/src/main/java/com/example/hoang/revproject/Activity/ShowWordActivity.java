@@ -77,6 +77,9 @@ public class ShowWordActivity extends AppCompatActivity {
                             wordSound.setChecked(false);
                         }
                     });
+                    int MAX_VOLUME = 100;
+                    final float volume = (float) (1 - (Math.log(MAX_VOLUME - MAX_VOLUME) / Math.log(MAX_VOLUME)));
+                    mediaPlayer.setVolume(volume,volume);
                     mediaPlayer.start();
                 }
             }

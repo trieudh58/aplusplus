@@ -200,12 +200,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="10">
-                <ImageButton
+                <Button
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="50dp"
                     android:text="..."
-                    android:src="@drawable/alarm"
+                    android:background="@drawable/button_background"
                     android:id="@+id/btnChooseWord"
                     android:textStyle="bold" />
                 <android.support.design.widget.TextInputLayout

@@ -173,7 +173,6 @@ public class MyVocabulary extends AppCompatActivity {
         swipeListView.setSwipeMode(SwipeListView.SWIPE_MODE_BOTH);
         swipeListView.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_CHOICE);
         swipeListView.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
-        swipeListView.setOffsetRight(convertDpToPixel(260f));
         swipeListView.setOffsetRight(convertDpToPixel(0f));
         swipeListView.setAnimationTime(50);
         swipeListView.setSwipeOpenOnLongPress(true);

@@ -33,5 +33,15 @@
             android:entryValues="@array/numberOfWordsValues"
             android:dependency="checkBox">
         </ListPreference>
+
+        <ListPreference
+            android:title="Topic"
+            android:summary="Choose your topic to learn today"
+            android:key="topic"
+            android:defaultValue="art"
+            android:entries="@array/topic"
+            android:entryValues="@array/topicValue"
+            android:dependency="checkBox">
+        </ListPreference>
     </PreferenceCategory>
 </PreferenceScreen>

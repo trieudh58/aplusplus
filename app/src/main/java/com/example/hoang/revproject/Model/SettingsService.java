@@ -73,12 +73,10 @@ public class SettingsService extends Service{
         database = new AlarmDBHelper(this.getApplicationContext());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         int strWord = Integer.parseInt(sharedPreferences.getString("repeating_word", "2"));
+        String topic = sharedPreferences.getString("topic", "art");
 
-        arrVocab = database.getListVocabs();
+        arrVocab = database.getListVocabs(topic);
         arrVocabNoti = new ArrayList<VocabularyModel>();
-
-        Bundle bundle = intent.getBundleExtra("DATA");
-//        int numberOfWord = bundle.getInt("NumberOfWord");
 
         Random rd = new Random();
         for (int i = 0; i < strWord; i++) {
@@ -88,8 +86,9 @@ public class SettingsService extends Service{
 
         id = rd.nextInt(listId.size());
 
-        notiModel = database.getVocab(listId.get(id));
+        notiModel = arrVocab.get(id);  //database.getVocab(listId.get(id));
         notiModel.setWordToday(1);
+        notiModel.setDone(1);
 
         addView();
         new UpdateLayout().execute();
@@ -102,7 +101,6 @@ public class SettingsService extends Service{
 
         Intent activityIntent = new Intent(this.getApplicationContext(), ShowWordActivity.class);
 
-        VocabularyModel notiModel = database.getVocab(listId.get(id));
         Bundle bundle1 = new Bundle();
         bundle1.putSerializable("MODEL", notiModel);
         activityIntent.putExtra("DATA", bundle1);

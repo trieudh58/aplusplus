@@ -141,7 +141,8 @@ public class AlarmManagerHelper extends BroadcastReceiver {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                 alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(),1000*60*5, pendingIntent);
             } else {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), 1000*60*5, pendingIntent);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), 1000 * 60 * 5, pendingIntent);
+                Toast.makeText(mContext, "Dang o kia", Toast.LENGTH_SHORT).show();
             }
         }
     }

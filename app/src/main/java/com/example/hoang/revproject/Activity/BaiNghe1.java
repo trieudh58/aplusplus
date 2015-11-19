@@ -55,7 +55,7 @@ public class BaiNghe1 extends AppCompatActivity {
         txt_end = (TextView) findViewById(R.id.TxtEnd);
         txt_topic = (TextView) findViewById(R.id.Txt_Topic);
         seekBar = (SeekBar) findViewById(R.id.SeekBar);
-        song = MediaPlayer.create(this, R.raw.willowy);
+        song = MediaPlayer.create(this, R.raw.bleedinglove);
         Myhandler = new Handler();
 
         btn_play.setOnClickListener(new View.OnClickListener() {

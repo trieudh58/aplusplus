@@ -7,6 +7,9 @@
     tools:context=".MainActivity">
 
     <GridView
+        android:layout_centerInParent="true"
+        android:layout_marginTop="65dp"
+        android:layout_margin="50dp"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/gv"

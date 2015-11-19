@@ -38,7 +38,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     private EditText word;
     int id = -1;
     Button Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday;
-    ImageButton btnChoose;
+    Button btnChoose;
     FloatingActionButton fbt;
     private TimePicker timePicker;
     private SeekBar seekBar = null;
@@ -62,7 +62,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
 
     public void getControls(){
         word = (EditText) findViewById(R.id.alarmWord);
-        btnChoose = (ImageButton) findViewById(R.id.btnChooseWord);
+        btnChoose = (Button) findViewById(R.id.btnChooseWord);
         Monday = (Button) findViewById(R.id.Monday);
         Tuesday = (Button) findViewById(R.id.Tuesday);
         Wednesday = (Button) findViewById(R.id.Wednesday);

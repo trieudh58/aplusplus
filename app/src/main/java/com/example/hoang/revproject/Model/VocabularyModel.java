@@ -13,16 +13,20 @@ public class VocabularyModel implements Serializable {
     private String Description;
     private String imagePath;
     private String soundPath;
+    private String topic;
+    private int done;
     private int wordToday;
 
     public VocabularyModel(){}
 
-    public VocabularyModel(String Word, String mean, String Description, String imagePath, String soundPath){
+    public VocabularyModel(String Word, String mean, String Description, String imagePath, String soundPath, String topic){
         this.Word = Word;
         this.meanOfWord = mean;
         this.Description = Description;
         this.imagePath = imagePath;
         this.soundPath = soundPath;
+        this.topic = topic;
+
     }
 
     public void setWordToday(int wordToday) {
@@ -79,5 +83,21 @@ public class VocabularyModel implements Serializable {
 
     public String getDescription() {
         return Description;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setDone(int done) {
+        this.done = done;
+    }
+
+    public int getDone() {
+        return done;
     }
 }

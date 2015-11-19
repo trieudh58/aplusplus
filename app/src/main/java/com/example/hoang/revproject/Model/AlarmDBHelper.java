@@ -41,6 +41,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_WORD_IMAGE = "image";
     public static final String COLUMN_WORD_SOUND = "sound";
     public static final String COLUMN_WORD_TODAY = "wordToday";
+    public static final String COLUMN_WORD_TOPIC = "topic";
+    public static final String COLUMN_WORD_DONE = "done";
 
 
     // myvocabulary table
@@ -71,6 +73,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
                                                         + COLUMN_WORD_DESCRIPTION + " text, "
                                                         + COLUMN_WORD_IMAGE + " text, "
                                                         + COLUMN_WORD_SOUND + " text, "
+                                                        + COLUMN_WORD_TOPIC + " text, "
+                                                        + COLUMN_WORD_DONE + " integer default 0, "
                                                         + COLUMN_WORD_TODAY + " integer default 0 " + ")";
 
     private static final String SQL_CREATE_MY_VOCABULARY = "create table " + TABLE_NAME2 + " ( "
@@ -127,6 +131,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         model.setImagePath(c.getString(c.getColumnIndex(COLUMN_WORD_IMAGE)));
         model.setSoundPath(c.getString(c.getColumnIndex(COLUMN_WORD_SOUND)));
         model.setWordToday(c.getInt(c.getColumnIndex(COLUMN_WORD_TODAY)));
+        model.setTopic(c.getString(c.getColumnIndex(COLUMN_WORD_TOPIC)));
+        model.setDone(c.getInt(c.getColumnIndex(COLUMN_WORD_DONE)));
         return model;
     }
 
@@ -146,6 +152,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_WORD_DESCRIPTION, model.getDescription());
         values.put(COLUMN_WORD_IMAGE, model.getImagePath());
         values.put(COLUMN_WORD_SOUND, model.getSoundPath());
+        values.put(COLUMN_WORD_TOPIC, model.getTopic());
         return values;
     }
 
@@ -210,6 +217,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = getVocabContent(model);
         values.put(COLUMN_WORD_TODAY, model.getWordToday());
+        values.put(COLUMN_WORD_DONE, model.getDone());
         long n = database.update(TABLE_NAME1, values, COLUMN_WORD_ID + " = ?", new String[]{String.valueOf(model.getId())});
         if(n < 0){
             Log.d(TAG, "Updated Vocab failed");
@@ -310,6 +318,19 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         return vocabModel;
     }
 
+    public List<VocabularyModel> getListVocabs(String topic){
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor c = database.rawQuery("select * from " + TABLE_NAME1 + " where " + COLUMN_WORD_TOPIC + " = " + "?", new String[]{topic});
+        List<VocabularyModel> vocabModel = new ArrayList<VocabularyModel>();
+        c.moveToFirst();
+        while (!c.isAfterLast()){
+            vocabModel.add(getVocabModel(c));
+            c.moveToNext();
+        }
+        database.close();
+        return vocabModel;
+    }
+
     public List<MyVocabularyModel> getListMyVocab(){
         SQLiteDatabase database = getReadableDatabase();
         String query = "select * from " + TABLE_NAME2;
@@ -318,6 +339,20 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         c.moveToFirst();
         while (!c.isAfterLast()){
             myVocab.add(getMyVocabModel(c));
+            c.moveToNext();
+        }
+        database.close();
+        return myVocab;
+    }
+
+    public List<VocabularyModel> getListVocabDone(){
+        SQLiteDatabase database = getReadableDatabase();
+        String query = "select * from " + TABLE_NAME1 + " where " + COLUMN_WORD_DONE + " = 1";
+        Cursor c = database.rawQuery(query, null);
+        List<VocabularyModel> myVocab = new ArrayList<VocabularyModel>();
+        c.moveToFirst();
+        while (!c.isAfterLast()){
+            myVocab.add(getVocabModel(c));
             c.moveToNext();
         }
         database.close();

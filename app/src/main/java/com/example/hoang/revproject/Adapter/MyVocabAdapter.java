@@ -58,6 +58,7 @@ public class MyVocabAdapter extends BaseAdapter {
             viewHolder.word = (TextView) convertView.findViewById(R.id.word);
             viewHolder.pronoun = (TextView) convertView.findViewById(R.id.pronoun);
             viewHolder.mean = (TextView) convertView.findViewById(R.id.mean);
+            viewHolder.back = (CardView) convertView.findViewById(R.id.back);
 
             convertView.setTag(viewHolder);
         }else {
@@ -69,13 +70,21 @@ public class MyVocabAdapter extends BaseAdapter {
         viewHolder.mean.setText(model.getMean());
         viewHolder.pronoun.setText(model.getPronoun());
 
-//        viewHolder.front.setCardBackgroundColor(Color.RED);
+        if(position % 2 == 0) {
+            ((CardView)viewHolder.front).setCardBackgroundColor(Color.RED);
+            ((CardView)viewHolder.front).setRadius(50);
+            ((CardView)viewHolder.back).setRadius(50);
+        }else {
+            ((CardView)viewHolder.front).setCardBackgroundColor(Color.GREEN);
+            ((CardView)viewHolder.front).setRadius(50);
+            ((CardView)viewHolder.back).setRadius(50);
+        }
 
         return convertView;
     }
 
     public class ViewHolder{
-        private CardView front;
+        private CardView front, back;
         private TextView word;
         private TextView pronoun;
         private TextView mean;
