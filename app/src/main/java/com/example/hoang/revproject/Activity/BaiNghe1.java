@@ -74,7 +74,8 @@ public class BaiNghe1 extends AppCompatActivity {
                 if(song.isPlaying()==false) {
                     song.start();
                     btn_play.setImageResource(R.drawable.btn_pause);
-                    Myhandler.postDelayed(Capnhat, 100);
+                    OnProgressChanged(seekBar);
+                    updateProgressBar();
                 }
                 else{
                     song.pause();
@@ -168,6 +169,31 @@ public class BaiNghe1 extends AppCompatActivity {
         });
     }
 
+    public void updateProgressBar(){
+        Myhandler.postDelayed(Capnhat,100);
+    }
+
+    public void OnProgressChanged(final SeekBar s){
+        s.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Myhandler.postDelayed(Capnhat,0);
+                int current = s.getProgress();
+                song.seekTo(current);
+                updateProgressBar();
+            }
+        });
+    }
 
     private Runnable Capnhat = new Runnable() {
         @Override
