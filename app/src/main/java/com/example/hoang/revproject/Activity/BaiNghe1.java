@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.hoang.revproject.R;
@@ -23,14 +24,14 @@ import java.util.concurrent.TimeUnit;
 
 public class BaiNghe1 extends AppCompatActivity {
 
-    ImageView btn_stop ,btn_prev, btn_play, btn_next, btn_reapeat, btn_like, img_topic;
+    ImageView btn_stop ,btn_prev, btn_play, btn_next, btn_reapeat, img_topic;
     TextView txt_start , txt_end, txt_topic, txt_tran;
-    ToggleButton btn_show;
+    ToggleButton btn_show, btn_like;
     SeekBar seekBar;
     MediaPlayer song;
     double Time_start=0 , Time_end=0;
     private Handler Myhandler = new Handler();
-    boolean check;
+    boolean check, isFavorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class BaiNghe1 extends AppCompatActivity {
         btn_play = (ImageView) findViewById(R.id.btn_play);
         btn_next = (ImageView) findViewById(R.id.btn_next);
         btn_reapeat = (ImageView) findViewById(R.id.btn_reapeat);
-        btn_like = (ImageView) findViewById(R.id.btn_like);
+        btn_like = (ToggleButton) findViewById(R.id.btn_like);
         btn_show = (ToggleButton) findViewById(R.id.btn_show);
         img_topic = (ImageView) findViewById(R.id.Image_Topic);
         txt_tran = (TextView) findViewById(R.id.Txt_Transcrip);
@@ -103,17 +104,30 @@ public class BaiNghe1 extends AppCompatActivity {
         btn_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     txt_tran.setText("Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển.");
                     //  txt_tran.setTextAlignment();
                     txt_tran.setVisibility(View.VISIBLE);
                     img_topic.setVisibility(View.INVISIBLE);
-                }
-                else {
+                } else {
                     txt_tran.setVisibility(View.INVISIBLE);
                     img_topic.setVisibility(View.VISIBLE);
                 }
 
+            }
+        });
+
+        btn_like.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Toast.makeText(BaiNghe1.this, "Bạn đã thích bài này", Toast.LENGTH_SHORT).show();
+                    isFavorite = true;
+                }
+                else{
+                    Toast.makeText(BaiNghe1.this, "Bạn đã hủy thích bài này", Toast.LENGTH_SHORT).show();
+                    isFavorite =false;
+                }
             }
         });
 

@@ -84,17 +84,19 @@
         android:layout_width="255dp"
         android:layout_height="250dp"
         android:id="@+id/Image_Topic"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="105dp"
         android:visibility="visible"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/btn_like"
         android:src="@drawable/family" />
 
-    <ImageView
+    <ToggleButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/btn_like"
-        android:src="@drawable/btn_like"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/btn_like"
         android:layout_above="@+id/SeekBar"
         android:layout_marginLeft="10dp" />
 
@@ -114,13 +116,13 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Family"
         android:id="@+id/Txt_Topic"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="65dp"
         android:layout_centerHorizontal="true" />
 
     <ScrollView
         android:layout_width="349dp"
         android:layout_height="230dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="110dp"
         android:layout_marginLeft="20dp"
         android:id="@+id/scrollView">
         <TextView
