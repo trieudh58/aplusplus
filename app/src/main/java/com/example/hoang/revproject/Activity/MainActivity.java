@@ -101,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Intent intent1 = new Intent(MainActivity.this, ListListener.class);
                         startActivity(intent1);
                         break;
+                    case 2:
+                        Intent intent2 = new Intent(MainActivity.this, TroChoi.class);
+                        startActivity(intent2);
+                        break;
                     case 3:
                         Intent intent3 = new Intent(MainActivity.this, AlarmListActivity.class);
                         startActivity(intent3);
