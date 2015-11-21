@@ -30,14 +30,14 @@
     <style name="MyListBackContent">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">#fa002aff</item>
+        <item name="android:background">@drawable/bg_unselected</item>
         <item name="android:gravity">right</item>
     </style>
 
     <style name="MyListFrontContent">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">@drawable/background_front</item>
+        <item name="android:background">@drawable/myvob_background</item>
         <item name="android:padding">8dp</item>
     </style>
 

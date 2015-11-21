@@ -175,7 +175,7 @@ public class MyVocabulary extends AppCompatActivity {
         swipeListView.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
         swipeListView.setOffsetRight(convertDpToPixel(0f));
         swipeListView.setAnimationTime(50);
-        swipeListView.setSwipeOpenOnLongPress(true);
+//        swipeListView.setSwipeOpenOnLongPress(true);
     }
 
     public int convertDpToPixel(float dp) {

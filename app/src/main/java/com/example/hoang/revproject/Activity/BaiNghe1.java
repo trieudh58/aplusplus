@@ -4,11 +4,21 @@ package com.example.hoang.revproject.Activity;
  * Created by An on 08/11/2015.
  */
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -19,6 +29,7 @@ import android.widget.ToggleButton;
 
 import com.example.hoang.revproject.R;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class BaiNghe1 extends AppCompatActivity {
@@ -31,6 +42,12 @@ public class BaiNghe1 extends AppCompatActivity {
     double Time_start=0 , Time_end=0;
     private Handler Myhandler = new Handler();
     boolean check;
+    ActionMode.Callback actionMode;
+    ActionMode action;
+    Spanned s;
+    TextToSpeech tts;
+    int start;
+    int end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +58,14 @@ public class BaiNghe1 extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR){
+                    tts.setLanguage(Locale.ENGLISH);
+                }
+            }
+        });
         btn_stop = (ImageView) findViewById(R.id.btn_stop);
         btn_prev = (ImageView) findViewById(R.id.btn_prev);
         btn_play = (ImageView) findViewById(R.id.btn_play);
@@ -50,6 +75,37 @@ public class BaiNghe1 extends AppCompatActivity {
         btn_show = (ToggleButton) findViewById(R.id.btn_show);
         img_topic = (ImageView) findViewById(R.id.Image_Topic);
         txt_tran = (TextView) findViewById(R.id.Txt_Transcrip);
+
+        actionMode = new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.setTitle(s);
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.action_mode, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.listen:
+                        tts.speak(s.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                action = null;
+            }
+        };
 
         txt_start = (TextView) findViewById(R.id.TxTStart);
         txt_end = (TextView) findViewById(R.id.TxtEnd);
@@ -104,7 +160,29 @@ public class BaiNghe1 extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    txt_tran.setText("Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển.");
+                    String str = "";
+                    for (int i = 0; i < 20 ; i++){
+                        str += "What's the weather like today?";
+                    }
+                    txt_tran.setText(str);
+                    SpannableString ss = new SpannableString(txt_tran.getText());
+                    ClickableSpan clickableSpan = new ClickableSpan() {
+                        @Override
+                        public void onClick(View widget) {
+//                            // TODO add check if widget instanceof TextView
+                            TextView tv = (TextView) widget;
+                            // TODO add check if tv.getText() instanceof Spanned
+                            s = (Spanned) tv.getText();
+                            start = s.getSpanStart(this);
+                            end = s.getSpanEnd(this);
+                            action = BaiNghe1.this.startActionMode(actionMode);
+                        }
+                    };
+
+                    ss.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    txt_tran.setText(ss);
+                    txt_tran.setMovementMethod(LinkMovementMethod.getInstance());
+                    txt_tran.setHighlightColor(Color.TRANSPARENT);
                     //  txt_tran.setTextAlignment();
                     txt_tran.setVisibility(View.VISIBLE);
                     img_topic.setVisibility(View.INVISIBLE);
@@ -191,6 +269,15 @@ public class BaiNghe1 extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void onPause() {
+        if(tts !=null){
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onPause();
+    }
 
 }
 
