@@ -99,7 +99,8 @@
         <activity
             android:name=".Activity.TroChoi"
             android:label="@string/title_activity_tro_choi"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
