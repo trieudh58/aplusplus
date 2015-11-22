@@ -121,6 +121,8 @@ public class InitFakeData {
                 " test d. bàn thử, bảng thử ", "@drawable/i26", "desk", BUSINESS );
 
         dbHelper.createVocab(model);
+        model.setDone(1);
+        dbHelper.updateVocab(model);
         dbHelper.createVocab(model1);
         dbHelper.createVocab(model2);
         dbHelper.createVocab(model3);

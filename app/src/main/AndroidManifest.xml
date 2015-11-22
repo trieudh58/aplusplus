@@ -60,7 +60,7 @@
         <activity
             android:name=".Activity.ShowWordActivity"
             android:label="@string/title_activity_show_word"
-            android:parentActivityName=".Activity.MainActivity"
+            android:parentActivityName=".Activity.HistoryActivity"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity

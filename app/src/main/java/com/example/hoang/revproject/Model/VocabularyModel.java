@@ -16,6 +16,7 @@ public class VocabularyModel implements Serializable {
     private String topic;
     private int done;
     private int wordToday;
+    private int pass;
 
     public VocabularyModel(){}
 
@@ -99,5 +100,13 @@ public class VocabularyModel implements Serializable {
 
     public int getDone() {
         return done;
+    }
+
+    public void setPass(int pass) {
+        this.pass = pass;
+    }
+
+    public int getPass() {
+        return pass;
     }
 }
