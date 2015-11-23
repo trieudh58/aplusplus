@@ -43,8 +43,15 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_WORD_TODAY = "wordToday";
     public static final String COLUMN_WORD_TOPIC = "topic";
     public static final String COLUMN_WORD_DONE = "done";
-    public static final String COLUMN_WORD_PASS = "pass";
 
+    // listening table
+    public static final String TABLE_NAME3 = "listening";
+    public static final String COLUMN_LISTENING_ID = "id";
+    public static final String COLUMN_LISTENING_TITLE = "title";
+    public static final String COLUMN_LISTENING_TRANS = "transcription";
+    public static final String COLUMN_LISTENING_FAVORITE = "isFavorite";
+    public static final String COLUMN_LISTENING_AUDIO = "audio";
+    public static final String COLUMN_LISTENING_IMAGE = "image";
 
     // myvocabulary table
     public static final String TABLE_NAME2 = "myvocabulary";
@@ -76,8 +83,15 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
                                                         + COLUMN_WORD_SOUND + " text, "
                                                         + COLUMN_WORD_TOPIC + " text, "
                                                         + COLUMN_WORD_DONE + " integer default 0, "
-                                                        + COLUMN_WORD_PASS + " integer default 0, "
                                                         + COLUMN_WORD_TODAY + " integer default 0 " + ")";
+
+    private static final String SQL_CREATE_LISTENING = "create table " + TABLE_NAME3 + " ( "
+                                                        + COLUMN_LISTENING_ID + " integer primary key autoincrement, "
+                                                        + COLUMN_LISTENING_TITLE + " text, "
+                                                        + COLUMN_LISTENING_TRANS + " text, "
+                                                        + COLUMN_LISTENING_FAVORITE + " integer default 0, "
+                                                        + COLUMN_LISTENING_AUDIO + " text, "
+                                                        + COLUMN_LISTENING_IMAGE + " text " + ")";
 
     private static final String SQL_CREATE_MY_VOCABULARY = "create table " + TABLE_NAME2 + " ( "
                                                         + COLUMN_MY_WORD_ID + " integer primary key autoincrement, "
@@ -88,6 +102,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ALARM = "drop table if exists " + TABLE_NAME;
     private static final String SQL_DELETE_VOCABULARY = "drop table if exists " + TABLE_NAME1;
     private static final String SQL_DELETE_MY_VOCABULARY = "drop table if exists " + TABLE_NAME2;
+    private static final String SQL_DELETE_LISTENING = "drop table if exists " + TABLE_NAME3;
 
     public AlarmDBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -98,13 +113,15 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_ALARM);
         db.execSQL(SQL_CREATE_VOCABULARY);
         db.execSQL(SQL_CREATE_MY_VOCABULARY);
+        db.execSQL(SQL_CREATE_LISTENING);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ALARM);
         db.execSQL(SQL_DELETE_VOCABULARY);
-        db.execSQL(SQL_CREATE_MY_VOCABULARY);
+        db.execSQL(SQL_DELETE_MY_VOCABULARY);
+        db.execSQL(SQL_DELETE_LISTENING);
         onCreate(db);
     }
 
@@ -124,6 +141,18 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         return model;
     }
 
+    private ListeningModel getListeningModel(Cursor c){
+        ListeningModel model = new ListeningModel();
+        model.setId(c.getInt(c.getColumnIndex(COLUMN_LISTENING_ID)));
+        model.setTitle(c.getString(c.getColumnIndex(COLUMN_LISTENING_TITLE)));
+        model.setTranscript(c.getString(c.getColumnIndex(COLUMN_LISTENING_TRANS)));
+        model.setIsFavorite(c.getInt(c.getColumnIndex(COLUMN_LISTENING_FAVORITE)));
+        model.setAudio(c.getString(c.getColumnIndex(COLUMN_LISTENING_AUDIO)));
+        model.setImage(c.getString(c.getColumnIndex(COLUMN_LISTENING_IMAGE)));
+
+        return model;
+    }
+
     private VocabularyModel getVocabModel(Cursor c){
         VocabularyModel model = new VocabularyModel();
         model.setId(c.getInt(c.getColumnIndex(COLUMN_WORD_ID)));
@@ -135,7 +164,6 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         model.setWordToday(c.getInt(c.getColumnIndex(COLUMN_WORD_TODAY)));
         model.setTopic(c.getString(c.getColumnIndex(COLUMN_WORD_TOPIC)));
         model.setDone(c.getInt(c.getColumnIndex(COLUMN_WORD_DONE)));
-        model.setPass(c.getInt(c.getColumnIndex(COLUMN_WORD_PASS)));
         return model;
     }
 
@@ -156,6 +184,16 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_WORD_IMAGE, model.getImagePath());
         values.put(COLUMN_WORD_SOUND, model.getSoundPath());
         values.put(COLUMN_WORD_TOPIC, model.getTopic());
+        return values;
+    }
+
+    private ContentValues getListeningContent(ListeningModel model){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_LISTENING_TITLE, model.getTitle());
+        values.put(COLUMN_LISTENING_TRANS, model.getTranscript());
+        values.put(COLUMN_LISTENING_IMAGE, model.getImage());
+        values.put(COLUMN_LISTENING_AUDIO, model.getAudio());
+
         return values;
     }
 
@@ -194,6 +232,17 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void createListening(ListeningModel model){
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues values = getListeningContent(model);
+        long n = database.insert(TABLE_NAME3, null, values);
+        if(n < 0){
+            Log.d(TAG, "Create Listening failed");
+        }else {
+            Log.d(TAG, "Create Listening successful");
+        }
+    }
+
     public void createVocab(VocabularyModel model){
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = getVocabContent(model);
@@ -221,12 +270,23 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         ContentValues values = getVocabContent(model);
         values.put(COLUMN_WORD_TODAY, model.getWordToday());
         values.put(COLUMN_WORD_DONE, model.getDone());
-        values.put(COLUMN_WORD_PASS, model.getPass());
         long n = database.update(TABLE_NAME1, values, COLUMN_WORD_ID + " = ?", new String[]{String.valueOf(model.getId())});
         if(n < 0){
             Log.d(TAG, "Updated Vocab failed");
         }else {
             Log.d(TAG, "Updated Vocab successful");
+        }
+    }
+
+    public void updateListening(ListeningModel model){
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues values = getListeningContent(model);
+        values.put(COLUMN_LISTENING_FAVORITE, model.getIsFavorite());
+        long n = database.update(TABLE_NAME3, values, COLUMN_LISTENING_ID + " = ?", new String[]{String.valueOf(model.getId())});
+        if(n < 0){
+            Log.d(TAG, "Updated Listening failed");
+        }else {
+            Log.d(TAG, "Updated Listening successful");
         }
     }
 
@@ -258,6 +318,16 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         Cursor c = database.rawQuery(query, null);
         if (c.moveToNext()){
             return getModel(c);
+        }
+        return null;
+    }
+
+    public ListeningModel getListening(int id){
+        SQLiteDatabase database = getReadableDatabase();
+        String query = "select * from " + TABLE_NAME3 + " where " + COLUMN_LISTENING_ID + " = " + id;
+        Cursor c = database.rawQuery(query, null);
+        if (c.moveToNext()){
+            return getListeningModel(c);
         }
         return null;
     }
@@ -306,6 +376,20 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         }
         database.close();
         return alarmModels;
+    }
+
+    public List<ListeningModel> getListListening(){
+        SQLiteDatabase database = getReadableDatabase();
+        String query = "select * from " + TABLE_NAME3;
+        Cursor c = database.rawQuery(query, null);
+        List<ListeningModel> listeningModels = new ArrayList<ListeningModel>();
+        c.moveToFirst();
+        while (!c.isAfterLast()){
+            listeningModels.add(getListeningModel(c));
+            c.moveToNext();
+        }
+        database.close();
+        return listeningModels;
     }
 
     public List<VocabularyModel> getListVocabs(){

@@ -9,16 +9,15 @@ public class ListeningModel implements Serializable {
     public int id;
     private String title;
     private String transcript;
-    private boolean isFavorite;
+    private int isFavorite;
     private String image;
     private String audio;
 
     public ListeningModel() {}
 
-    public ListeningModel(String title, String transcript, boolean isFavorite, String image, String audio) {
+    public ListeningModel(String title, String transcript, String image, String audio) {
         this.title = title;
         this.transcript = transcript;
-        this.isFavorite = isFavorite;
         this.image = image;
         this.audio = audio;
     }
@@ -43,27 +42,31 @@ public class ListeningModel implements Serializable {
         this.transcript = transcript;
     }
 
+    public int getIsFavorite() {
+        return isFavorite;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
     public String getTranscript() {
-        return this.transcript;
+        return transcript;
     }
 
-    public void setIsFavorite(boolean isFavorite) {
-        this.isFavorite = isFavorite;
-    }
-
-    public boolean getIsFavorite() {
-        return this.isFavorite;
+    public void setAudio(String audio) {
+        this.audio = audio;
     }
 
     public void setImage(String image) {
         this.image = image;
     }
 
-    public String getImage() {
-        return this.image;
-    }
-
-    public void setAudio(String audio) {
-        this.audio = audio;
+    public void setIsFavorite(int isFavorite) {
+        this.isFavorite = isFavorite;
     }
 }
