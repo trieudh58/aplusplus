@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initData();
-
     }
 
     public void initData(){
@@ -101,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case 1:
                         Intent intent1 = new Intent(MainActivity.this, ListListener.class);
                         startActivity(intent1);
+                        break;
+                    case 2:
+                        Intent intent2 = new Intent(MainActivity.this, TroChoi.class);
+                        startActivity(intent2);
                         break;
                     case 3:
                         Intent intent3 = new Intent(MainActivity.this, AlarmListActivity.class);
