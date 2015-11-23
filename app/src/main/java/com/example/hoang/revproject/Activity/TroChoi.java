@@ -80,8 +80,10 @@ public class TroChoi extends AppCompatActivity {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             lp.weight = 1;
+            lp.setMargins(5,5,5,5);
             btn[i].setLayoutParams(lp);
             btn[i].setTextColor(Color.WHITE);
+            btn[i].setBackgroundResource(R.drawable.button_background);
 
             if (i < 7) {
                 linear1.addView(btn[i]);
