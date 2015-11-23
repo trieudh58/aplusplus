@@ -88,8 +88,7 @@
         android:visibility="visible"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/btn_like"
-        android:src="@drawable/family" />
+        android:layout_toRightOf="@+id/btn_like" />
 
     <ToggleButton
         android:layout_width="50dp"
@@ -115,7 +114,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Family"
         android:id="@+id/Txt_Topic"
         android:layout_marginTop="65dp"
         android:layout_centerHorizontal="true" />

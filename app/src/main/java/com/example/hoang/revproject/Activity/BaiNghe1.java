@@ -4,7 +4,9 @@ package com.example.hoang.revproject.Activity;
  * Created by An on 08/11/2015.
  */
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.hoang.revproject.Model.ListeningModel;
 import com.example.hoang.revproject.R;
 
 import java.util.Locale;
@@ -59,6 +62,10 @@ public class BaiNghe1 extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("DATA");
+        final ListeningModel model = (ListeningModel) bundle.getSerializable("MODEL");
+
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -76,6 +83,13 @@ public class BaiNghe1 extends AppCompatActivity {
         btn_show = (ToggleButton) findViewById(R.id.btn_show);
         img_topic = (ImageView) findViewById(R.id.Image_Topic);
         txt_tran = (TextView) findViewById(R.id.Txt_Transcrip);
+        txt_topic = (TextView) findViewById(R.id.Txt_Topic);
+
+        txt_topic.setText(model.getTitle());
+
+        int imageResource = this.getResources().getIdentifier(model.getImage(), null, this.getPackageName());
+        Drawable res = this.getResources().getDrawable(imageResource);
+        img_topic.setImageDrawable(res);
 
         actionMode = new ActionMode.Callback() {
             @Override
@@ -112,7 +126,9 @@ public class BaiNghe1 extends AppCompatActivity {
         txt_end = (TextView) findViewById(R.id.TxtEnd);
         txt_topic = (TextView) findViewById(R.id.Txt_Topic);
         seekBar = (SeekBar) findViewById(R.id.SeekBar);
-        song = MediaPlayer.create(this, R.raw.bleedinglove);
+        String soundName = model.getAudio().toLowerCase();
+        int resID = getResources().getIdentifier(soundName, "raw", getPackageName());
+        song = MediaPlayer.create(this, resID);
         Myhandler = new Handler();
 
         btn_play.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +180,7 @@ public class BaiNghe1 extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if (isChecked) {
-                    txt_tran.setText("Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển. Đây là lyric của bài hát nè. Cảm ơn đảng, cảm ơn nhà nước, cảm ơn money để em có thể mua thanh RAM4GB cho hiệu năng cải thiện, e cũng cảm ơn phần mềm Android Studio đã phát triển.");
+                    txt_tran.setText(model.getTranscript());
                     //  txt_tran.setTextAlignment();
                     txt_tran.setVisibility(View.VISIBLE);
                     img_topic.setVisibility(View.INVISIBLE);

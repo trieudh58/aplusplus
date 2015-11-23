@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hoang.revproject.Activity.BaiNghe1;
 import com.example.hoang.revproject.Activity.ShowWordActivity;
@@ -21,6 +22,7 @@ import com.example.hoang.revproject.Model.ListeningModel;
 import com.example.hoang.revproject.Model.VocabularyModel;
 import com.example.hoang.revproject.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,12 +31,14 @@ import java.util.List;
 public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.ListeningViewHolder>{
 
     private Context mContext;
-    private List<ListeningModel> listeningModels;
+    private List<ListeningModel> listeningModels = new ArrayList<ListeningModel>();
     private AlarmDBHelper dbHelper;
+    private ListeningModel model;
 
     public ListeningAdapter(Context mContext, List<ListeningModel> arr){
         this.mContext = mContext;
         this.listeningModels = arr;
+        Toast.makeText(mContext, listeningModels.size() + "", Toast.LENGTH_LONG).show();
         dbHelper = new AlarmDBHelper(mContext);
     }
 
@@ -48,7 +52,7 @@ public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.List
 
     @Override
     public void onBindViewHolder(ListeningViewHolder holder, int position) {
-        ListeningModel model = listeningModels.get(position);
+        model = listeningModels.get(position);
         int imageResource = mContext.getResources().getIdentifier(model.getImage(), null, mContext.getPackageName());
         Drawable res = mContext.getResources().getDrawable(imageResource);
         holder.listeningImage.setImageDrawable(res);
@@ -57,7 +61,7 @@ public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.List
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listeningModels.size();
     }
 
     public class ListeningViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {

@@ -43,7 +43,7 @@ public class ListListener extends AppCompatActivity {
 
     public void getControls(){
         dbHelper = new AlarmDBHelper(this);
-        list = new ArrayList<ListeningModel>();
+
         list = dbHelper.getListListening();
         recyclerView = (RecyclerView) findViewById(R.id.list_listen);
         adapter = new ListeningAdapter(this, list);
