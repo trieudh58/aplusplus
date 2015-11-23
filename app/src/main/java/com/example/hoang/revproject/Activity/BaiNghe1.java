@@ -4,17 +4,14 @@ package com.example.hoang.revproject.Activity;
  * Created by An on 08/11/2015.
  */
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,9 +32,9 @@ import java.util.concurrent.TimeUnit;
 
 public class BaiNghe1 extends AppCompatActivity {
 
-    ImageView btn_stop ,btn_prev, btn_play, btn_next, btn_reapeat, img_topic;
+    ImageView btn_stop ,btn_prev, btn_play, btn_next, img_topic;
     TextView txt_start , txt_end, txt_topic, txt_tran;
-    ToggleButton btn_show, btn_like;
+    ToggleButton btn_show, btn_like, btn_reapeat;
     SeekBar seekBar;
     MediaPlayer song;
     double Time_start=0 , Time_end=0;
@@ -48,7 +45,7 @@ public class BaiNghe1 extends AppCompatActivity {
     TextToSpeech tts;
     int start;
     int end;
-    boolean check, isFavorite = false;
+    boolean check, isFavorite = false, isRepeat = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +68,7 @@ public class BaiNghe1 extends AppCompatActivity {
         btn_prev = (ImageView) findViewById(R.id.btn_prev);
         btn_play = (ImageView) findViewById(R.id.btn_play);
         btn_next = (ImageView) findViewById(R.id.btn_next);
-        btn_reapeat = (ImageView) findViewById(R.id.btn_reapeat);
+        btn_reapeat = (ToggleButton) findViewById(R.id.btn_reapeat);
         btn_like = (ToggleButton) findViewById(R.id.btn_like);
         btn_show = (ToggleButton) findViewById(R.id.btn_show);
         img_topic = (ImageView) findViewById(R.id.Image_Topic);
@@ -115,11 +112,11 @@ public class BaiNghe1 extends AppCompatActivity {
         song = MediaPlayer.create(this, R.raw.bleedinglove);
         Myhandler = new Handler();
 
+        Time_end = song.getDuration();
+        seekBar.setMax((int) Time_end);
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Time_end = song.getDuration();
-                seekBar.setMax((int) Time_end);
                 long PhutKetThuc = TimeUnit.MILLISECONDS.toMinutes((long) Time_end);
                 long GiayKetThuc = TimeUnit.MILLISECONDS.toSeconds((long) Time_end) - PhutKetThuc * 60;
                 if (GiayKetThuc < 10) {
@@ -132,7 +129,20 @@ public class BaiNghe1 extends AppCompatActivity {
                     btn_play.setImageResource(R.drawable.btn_pause);
                     OnProgressChanged(seekBar);
                     updateProgressBar();
-                    if(seekBar.getProgress()== song.getDuration()) btn_play.setImageResource(R.drawable.btn_play);
+                    song.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            if(isRepeat==false) {
+                                song.seekTo(0);
+                                song.pause();
+                                btn_play.setImageResource(R.drawable.btn_play);
+                            }
+                            else {
+                                song.seekTo(0);
+                                song.start();
+                            }
+                        }
+                    });
                 }
                 else{
                     song.pause();
@@ -150,12 +160,17 @@ public class BaiNghe1 extends AppCompatActivity {
             }
         });
 
-        btn_reapeat.setOnClickListener(new View.OnClickListener() {
+        btn_reapeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                song.seekTo(0);
-                song.start();
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    isRepeat = true;
+                    Toast.makeText(BaiNghe1.this, "Phát lại bài này", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    isRepeat = false;
+                    Toast.makeText(BaiNghe1.this,"Hủy phát lại bài này", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -227,8 +242,15 @@ public class BaiNghe1 extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent list = new Intent(BaiNghe1.this, ListListener.class);
+        startActivity(list);
+        song.pause();
+    }
+
     public void updateProgressBar(){
-        Myhandler.postDelayed(Capnhat,100);
+        Myhandler.postDelayed(Capnhat, 100);
     }
 
     public void OnProgressChanged(final SeekBar s){
@@ -245,10 +267,11 @@ public class BaiNghe1 extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Myhandler.postDelayed(Capnhat,0);
+                Myhandler.postDelayed(Capnhat, 0);
                 int current = s.getProgress();
                 song.seekTo(current);
                 updateProgressBar();
+
             }
         });
     }
