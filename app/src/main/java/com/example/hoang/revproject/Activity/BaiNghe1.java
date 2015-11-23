@@ -4,15 +4,29 @@ package com.example.hoang.revproject.Activity;
  * Created by An on 08/11/2015.
  */
 
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
 import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,9 +40,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.hoang.revproject.Model.AlarmDBHelper;
 import com.example.hoang.revproject.Model.ListeningModel;
+import com.example.hoang.revproject.Model.MyVocabularyModel;
+import com.example.hoang.revproject.Model.ShakeListener;
 import com.example.hoang.revproject.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -41,13 +60,17 @@ public class BaiNghe1 extends AppCompatActivity {
     MediaPlayer song;
     double Time_start=0 , Time_end=0;
     private Handler Myhandler = new Handler();
-    ActionMode.Callback actionMode;
-    ActionMode action;
-    Spanned s;
+    private AlarmDBHelper dbHelper;
+    ActionMode.Callback actionModeCallback;
+    ActionMode actionMode;
+    String s;
     TextToSpeech tts;
     int start;
     int end;
     boolean check, isFavorite = false, isRepeat = false;
+    CoordinatorLayout coordinatorLayout;
+    ListeningModel model;
+    private ShakeListener mShaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +82,34 @@ public class BaiNghe1 extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
+        mShaker = new ShakeListener(this);
+        mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
+            public void onShake() {
+                List<ListeningModel> list = dbHelper.getListListening();
+                int id = model.getId() + 1;
+                if (id > list.size()) { id = 1;}
+                model = dbHelper.getListening(id);
+                Intent intent = new Intent(BaiNghe1.this, BaiNghe1.class);
+                Bundle bundleAnimation = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    bundleAnimation = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.animation, R.anim.animation1).toBundle();
+                    bundleAnimation.putSerializable("MODEL", model);
+                    intent.putExtra("DATA", bundleAnimation);
+                    song.pause();
+                    startActivity(intent);
+                }
+            }
+        });
+
+        dbHelper = new AlarmDBHelper(this);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.snackbar);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("DATA");
-        final ListeningModel model = (ListeningModel) bundle.getSerializable("MODEL");
+        model = (ListeningModel) bundle.getSerializable("MODEL");
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -85,10 +133,10 @@ public class BaiNghe1 extends AppCompatActivity {
         txt_topic.setText(model.getTitle());
 
         int imageResource = this.getResources().getIdentifier(model.getImage(), null, this.getPackageName());
-        Drawable res = this.getResources().getDrawable(imageResource);
+        final Drawable res = this.getResources().getDrawable(imageResource);
         img_topic.setImageDrawable(res);
 
-        actionMode = new ActionMode.Callback() {
+        actionModeCallback = new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 mode.setTitle(s);
@@ -108,6 +156,14 @@ public class BaiNghe1 extends AppCompatActivity {
                     case R.id.listen:
                         tts.speak(s.toString(), TextToSpeech.QUEUE_FLUSH, null);
                         return true;
+                    case R.id.add:
+                        MyVocabularyModel myVocabulary = new MyVocabularyModel(s, "", "");
+                        dbHelper.createMyVocab(myVocabulary);
+                        Snackbar snackbar = Snackbar
+                                .make(coordinatorLayout, "Add Vocabulary successful", Snackbar.LENGTH_LONG);
+
+                        snackbar.show();
+                        return true;
                     default:
                         return false;
                 }
@@ -115,7 +171,7 @@ public class BaiNghe1 extends AppCompatActivity {
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
-                action = null;
+                actionMode = null;
             }
         };
 
@@ -140,7 +196,7 @@ public class BaiNghe1 extends AppCompatActivity {
                 } else {
                     txt_end.setText(String.format("%d:%d", PhutKetThuc, GiayKetThuc));
                 }
-                if(song.isPlaying()==false) {
+                if (song.isPlaying() == false) {
                     song.start();
                     btn_play.setImageResource(R.drawable.btn_pause);
                     OnProgressChanged(seekBar);
@@ -148,19 +204,17 @@ public class BaiNghe1 extends AppCompatActivity {
                     song.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
-                            if(isRepeat==false) {
+                            if (isRepeat == false) {
                                 song.seekTo(0);
                                 song.pause();
                                 btn_play.setImageResource(R.drawable.btn_play);
-                            }
-                            else {
+                            } else {
                                 song.seekTo(0);
                                 song.start();
                             }
                         }
                     });
-                }
-                else{
+                } else {
                     song.pause();
                     btn_play.setImageResource(R.drawable.btn_play);
                 }
@@ -179,13 +233,12 @@ public class BaiNghe1 extends AppCompatActivity {
         btn_reapeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     isRepeat = true;
                     Toast.makeText(BaiNghe1.this, "Phát lại bài này", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     isRepeat = false;
-                    Toast.makeText(BaiNghe1.this,"Hủy phát lại bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "Hủy phát lại bài này", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -195,7 +248,9 @@ public class BaiNghe1 extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if (isChecked) {
-                    txt_tran.setText(model.getTranscript());
+                    txt_tran.setText(model.getTranscript(), TextView.BufferType.SPANNABLE);
+                    getEachWord(txt_tran);
+                    txt_tran.setMovementMethod(LinkMovementMethod.getInstance());
                     //  txt_tran.setTextAlignment();
                     txt_tran.setVisibility(View.VISIBLE);
                     img_topic.setVisibility(View.INVISIBLE);
@@ -210,13 +265,12 @@ public class BaiNghe1 extends AppCompatActivity {
         btn_like.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     Toast.makeText(BaiNghe1.this, "Bạn đã thích bài này", Toast.LENGTH_SHORT).show();
                     isFavorite = true;
-                }
-                else{
+                } else {
                     Toast.makeText(BaiNghe1.this, "Bạn đã hủy thích bài này", Toast.LENGTH_SHORT).show();
-                    isFavorite =false;
+                    isFavorite = false;
                 }
             }
         });
@@ -239,7 +293,6 @@ public class BaiNghe1 extends AppCompatActivity {
             }
         });
 
-
         //xử lí tua lùi bài hát
         btn_prev.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -259,9 +312,16 @@ public class BaiNghe1 extends AppCompatActivity {
     }
 
     @Override
+    public void onResume()
+    {
+        mShaker.resume();
+        super.onResume();
+    }
+
+    @Override
     public void onBackPressed() {
-        Intent list = new Intent(BaiNghe1.this, ListListener.class);
-        startActivity(list);
+        Intent intent = new Intent(this, ListListener.class);
+        startActivity(intent);
         song.pause();
     }
 
@@ -335,7 +395,57 @@ public class BaiNghe1 extends AppCompatActivity {
             tts.stop();
             tts.shutdown();
         }
+        mShaker.pause();
         super.onPause();
+    }
+
+    public void getEachWord(TextView textView){
+        Spannable spans = (Spannable)textView.getText();
+        Integer[] indices = getIndices(
+                textView.getText().toString().trim(), ' ');
+        int start = 0;
+        int end = 0;
+        // to cater last/only word loop will run equal to the length of indices.length
+        for (int i = 0; i <= indices.length; i++) {
+            ClickableSpan clickSpan = getClickableSpan();
+            // to cater last/only word
+            end = (i < indices.length ? indices[i] : spans.length());
+            spans.setSpan(clickSpan, start, end,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            start = end + 1;
+        }
+
+        textView.setHighlightColor(Color.BLUE);
+    }
+    private ClickableSpan getClickableSpan(){
+        return new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                TextView tv = (TextView) widget;
+                s = tv
+                        .getText()
+                        .subSequence(tv.getSelectionStart(),
+                                tv.getSelectionEnd()).toString();
+                actionMode = BaiNghe1.this.startActionMode(actionModeCallback);
+
+                Log.d("tapped on:", s);
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(Color.BLACK);
+                ds.setUnderlineText(false);
+            }
+        };
+    }
+
+    public static Integer[] getIndices(String s, char c) {
+        int pos = s.indexOf(c, 0);
+        List<Integer> indices = new ArrayList<Integer>();
+        while (pos != -1) {
+            indices.add(pos);
+            pos = s.indexOf(c, pos + 1);
+        }
+        return (Integer[]) indices.toArray(new Integer[0]);
     }
 
 }
