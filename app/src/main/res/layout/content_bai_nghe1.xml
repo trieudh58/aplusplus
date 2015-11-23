@@ -81,11 +81,12 @@
         android:layout_marginBottom="10dp"/>
 
     <ImageView
-        android:layout_width="255dp"
+        android:layout_width="250dp"
         android:layout_height="250dp"
         android:id="@+id/Image_Topic"
         android:layout_marginTop="105dp"
         android:visibility="visible"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/btn_like"
         android:src="@drawable/family" />
@@ -98,7 +99,7 @@
         android:textOn=""
         android:background="@drawable/btn_like"
         android:layout_above="@+id/SeekBar"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="5dp" />
 
     <ToggleButton
         android:layout_width="50dp"
@@ -120,13 +121,13 @@
         android:layout_centerHorizontal="true" />
 
     <ScrollView
-        android:layout_width="349dp"
+        android:layout_width="340dp"
         android:layout_height="230dp"
         android:layout_marginTop="110dp"
         android:layout_marginLeft="20dp"
         android:id="@+id/scrollView">
         <TextView
-            android:layout_width="349dp"
+            android:layout_width="325dp"
             android:layout_height="wrap_content"
             android:id="@+id/Txt_Transcrip"
             android:visibility="invisible" />

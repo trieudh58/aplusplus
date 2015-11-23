@@ -132,6 +132,7 @@ public class BaiNghe1 extends AppCompatActivity {
                     btn_play.setImageResource(R.drawable.btn_pause);
                     OnProgressChanged(seekBar);
                     updateProgressBar();
+                    if(seekBar.getProgress()== song.getDuration()) btn_play.setImageResource(R.drawable.btn_play);
                 }
                 else{
                     song.pause();
