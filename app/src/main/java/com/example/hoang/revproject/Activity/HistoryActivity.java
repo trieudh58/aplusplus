@@ -52,6 +52,12 @@ public class HistoryActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    protected void onResume() {
+        updateRecyclerView();
+        super.onResume();
+    }
+
     public void updateRecyclerView(){
         list.clear();
         List<VocabularyModel> newList = dbHelper.getListVocabDone();

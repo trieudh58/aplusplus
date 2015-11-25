@@ -7,6 +7,8 @@ package com.example.hoang.revproject.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -33,6 +35,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -70,46 +73,47 @@ public class BaiNghe1 extends AppCompatActivity {
     boolean check, isFavorite = false, isRepeat = false;
     CoordinatorLayout coordinatorLayout;
     ListeningModel model;
-    private ShakeListener mShaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.content_bai_nghe1);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-
-        mShaker = new ShakeListener(this);
-        mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
-            public void onShake() {
-                List<ListeningModel> list = dbHelper.getListListening();
-                int id = model.getId() + 1;
-                if (id > list.size()) { id = 1;}
-                model = dbHelper.getListening(id);
-                Intent intent = new Intent(BaiNghe1.this, BaiNghe1.class);
-                Bundle bundleAnimation = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                    bundleAnimation = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.animation, R.anim.animation1).toBundle();
-                    bundleAnimation.putSerializable("MODEL", model);
-                    intent.putExtra("DATA", bundleAnimation);
-                    song.pause();
-                    startActivity(intent);
-                }
-            }
-        });
-
-        dbHelper = new AlarmDBHelper(this);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.snackbar);
+        setContentView(R.layout.activity_bai_nghe1);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("DATA");
         model = (ListeningModel) bundle.getSerializable("MODEL");
+
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+//
+//        mShaker = new ShakeListener(this);
+//        mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
+//            public void onShake() {
+//                List<ListeningModel> list = dbHelper.getListListening();
+//                int id = model.getId() + 1;
+//                if (id > list.size()) { id = 1;}
+//                model = dbHelper.getListening(id);
+//                Intent intent = new Intent(BaiNghe1.this, BaiNghe1.class);
+//                Bundle bundleAnimation = null;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+//                    bundleAnimation = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.animation, R.anim.animation1).toBundle();
+//                    bundleAnimation.putSerializable("MODEL", model);
+//                    intent.putExtra("DATA", bundleAnimation);
+//                    song.pause();
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+
+        dbHelper = new AlarmDBHelper(this);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.snackbar);
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -311,12 +315,12 @@ public class BaiNghe1 extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onResume()
-    {
-        mShaker.resume();
-        super.onResume();
-    }
+//    @Override
+//    public void onResume()
+//    {
+//        mShaker.resume();
+//        super.onResume();
+//    }
 
     @Override
     public void onBackPressed() {
@@ -395,7 +399,7 @@ public class BaiNghe1 extends AppCompatActivity {
             tts.stop();
             tts.shutdown();
         }
-        mShaker.pause();
+//        mShaker.pause();
         super.onPause();
     }
 
@@ -447,7 +451,6 @@ public class BaiNghe1 extends AppCompatActivity {
         }
         return (Integer[]) indices.toArray(new Integer[0]);
     }
-
 }
 
 
