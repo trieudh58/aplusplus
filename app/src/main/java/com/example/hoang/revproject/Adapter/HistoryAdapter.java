@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.speech.RecognizerIntent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -41,7 +42,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     private AlarmDBHelper dbHelper;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     HistoryViewHolder holder;
-    static String word1 = "";
     private int index;
 
     public HistoryAdapter(Context mContext, List<VocabularyModel> arr){
@@ -160,6 +160,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public String onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("MyAdapter", "onActivityResult");
         VocabularyModel model = arrVocab.get(index);
+        String word1 = "";
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT:
                 if (resultCode == resultCode && null != data) {
@@ -167,6 +168,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
                     word1 = list.get(0);
                     if (model.getWord().equalsIgnoreCase(word1)){
                         model.setPass(1);
+                        dbHelper.updateVocab(model);
+                    }else{
+                        final Vibrator vibe = (Vibrator)mContext.getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(1000);
+                        model.setPass(0);
                         dbHelper.updateVocab(model);
                     }
                 }

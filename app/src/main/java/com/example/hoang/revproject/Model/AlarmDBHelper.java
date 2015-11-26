@@ -43,6 +43,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_WORD_TODAY = "wordToday";
     public static final String COLUMN_WORD_TOPIC = "topic";
     public static final String COLUMN_WORD_DONE = "done";
+    public static final String COLUMN_WORD_PASS = "pass";
 
     // listening table
     public static final String TABLE_NAME3 = "listening";
@@ -83,6 +84,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
                                                         + COLUMN_WORD_SOUND + " text, "
                                                         + COLUMN_WORD_TOPIC + " text, "
                                                         + COLUMN_WORD_DONE + " integer default 0, "
+                                                        + COLUMN_WORD_PASS + " integer default 0, "
                                                         + COLUMN_WORD_TODAY + " integer default 0 " + ")";
 
     private static final String SQL_CREATE_LISTENING = "create table " + TABLE_NAME3 + " ( "
@@ -164,6 +166,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         model.setWordToday(c.getInt(c.getColumnIndex(COLUMN_WORD_TODAY)));
         model.setTopic(c.getString(c.getColumnIndex(COLUMN_WORD_TOPIC)));
         model.setDone(c.getInt(c.getColumnIndex(COLUMN_WORD_DONE)));
+        model.setPass(c.getInt(c.getColumnIndex(COLUMN_WORD_PASS)));
         return model;
     }
 
@@ -269,6 +272,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = getVocabContent(model);
         values.put(COLUMN_WORD_TODAY, model.getWordToday());
+        values.put(COLUMN_WORD_PASS, model.getPass());
         values.put(COLUMN_WORD_DONE, model.getDone());
         long n = database.update(TABLE_NAME1, values, COLUMN_WORD_ID + " = ?", new String[]{String.valueOf(model.getId())});
         if(n < 0){

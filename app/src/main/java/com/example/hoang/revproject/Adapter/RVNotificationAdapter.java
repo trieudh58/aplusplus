@@ -37,11 +37,15 @@ public class RVNotificationAdapter extends RecyclerView.Adapter<RVNotificationAd
     private Context mContext;
     private VocabularyModel vocabularyModel;
     private AlarmDBHelper dbHelper;
+    private View mView;
+    private WindowManager windowManager;
 
-    public RVNotificationAdapter(Context mContext, List<VocabularyModel> arr){
+    public RVNotificationAdapter(Context mContext, List<VocabularyModel> arr, View view){
         this.mContext = mContext;
         this.arrVocab = arr;
         dbHelper = new AlarmDBHelper(mContext);
+        this.mView = view;
+        windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
     }
 
     @Override
@@ -105,6 +109,7 @@ public class RVNotificationAdapter extends RecyclerView.Adapter<RVNotificationAd
                     bundle.putSerializable("MODEL", model);
                     intent.putExtra("DATA", bundle);
                     mContext.startActivity(intent);
+                    windowManager.removeView(mView);
                 }
             });
         }

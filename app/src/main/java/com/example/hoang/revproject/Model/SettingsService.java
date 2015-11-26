@@ -91,7 +91,6 @@ public class SettingsService extends Service{
         notiModel.setDone(1);
 
         addView();
-        new UpdateLayout().execute();
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -99,6 +98,9 @@ public class SettingsService extends Service{
     private void addNotification(){
         notificationManager = (NotificationManager) this.getApplicationContext().getSystemService(this.getApplicationContext().NOTIFICATION_SERVICE);
 
+        VocabularyModel notiModel1 = arrVocab.get(id);;
+        notiModel1.setDone(1);
+        database.updateVocab(notiModel1);
         Intent activityIntent = new Intent(this.getApplicationContext(), ShowWordActivity.class);
 
         Bundle bundle1 = new Bundle();
@@ -127,7 +129,7 @@ public class SettingsService extends Service{
         arrVocabNoti = database.getListWordsToday(1);
         arrVocabNoti.add(notiModel);
         database.updateVocab(notiModel);
-        adapter = new RVNotificationAdapter(this.getApplicationContext(), arrVocabNoti);
+        adapter = new RVNotificationAdapter(this.getApplicationContext(), arrVocabNoti, mView);
         RecyclerView recyclerView = (RecyclerView) mView.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -202,37 +204,6 @@ public class SettingsService extends Service{
             addNotification();
         }else {
             addNotification();
-        }
-    }
-
-    private class UpdateLayout extends AsyncTask<Void, Integer, Void>{
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            int size = adapter.getItemCount();
-            publishProgress(size);
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            int size = values[0];
-            if (size == 0){
-                WindowManager windowManager = (WindowManager) getApplicationContext().getSystemService(WINDOW_SERVICE);
-                windowManager.removeView(mView);
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Toast.makeText(getApplicationContext(), "Don't forget to learn your word today!", Toast.LENGTH_SHORT).show();
         }
     }
 
