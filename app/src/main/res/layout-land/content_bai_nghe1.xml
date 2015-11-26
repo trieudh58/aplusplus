@@ -6,10 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-<<<<<<< HEAD
     tools:context="com.example.hoang.revproject.Activity.BaiNghe1"
     android:background="#FFCFE4F8">
-
 
     <LinearLayout
         android:layout_marginTop="10dp"
@@ -70,7 +68,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/SeekBar"
                         android:layout_gravity="center"
-                        android:layout_above="@+id/linearLayout"
                         android:indeterminate="false"
                         android:layout_weight="8"/>
                     <TextView
@@ -89,8 +86,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
                     android:gravity="center"
                     android:id="@+id/linearLayout">
 
@@ -160,9 +155,4 @@
         </LinearLayout>
 
     </LinearLayout>
-=======
-    android:id="@+id/snackbar"
-    tools:context="com.example.hoang.revproject.Activity.BaiNghe1">
-
->>>>>>> abcf99a4ee12d892bb48f12d509a535413cffba4
 </android.support.design.widget.CoordinatorLayout>

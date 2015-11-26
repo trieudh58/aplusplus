@@ -15,13 +15,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hoang.revproject.Model.AlarmDBHelper;
+import com.example.hoang.revproject.Model.VocabularyModel;
 import com.example.hoang.revproject.R;
 
+import java.util.List;
 import java.util.Random;
 
 public class TroChoi extends AppCompatActivity {
 
     LinearLayout linear1, linear2, linear3, linear4;
+    List <VocabularyModel> listVocab;
+    AlarmDBHelper alarmDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,8 @@ public class TroChoi extends AppCompatActivity {
         linear4 = (LinearLayout)findViewById(R.id.linear4);
 
         khoiTaoManChoi(linear2, linear3, linear4, "songxobo");
+        alarmDBHelper = new AlarmDBHelper(this);
+        listVocab = alarmDBHelper.getListVocabs();
     }
 
     public void khoiTaoManChoi(LinearLayout linear1, LinearLayout linear2, LinearLayout linear3, String tumoi) {
