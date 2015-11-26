@@ -4,7 +4,6 @@ package com.example.hoang.revproject.Activity;
  * Created by An on 08/11/2015.
  */
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -13,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -54,7 +52,7 @@ public class BaiNghe1 extends AppCompatActivity {
     ToggleButton btn_show, btn_like, btn_reapeat;
     SeekBar seekBar;
     MediaPlayer song;
-    double Time_start = 0, Time_end = 0;
+    double Time_start = 0, Time_end = 0, current;
     private Handler Myhandler = new Handler();
     private AlarmDBHelper dbHelper;
     ActionMode.Callback actionModeCallback;
@@ -73,34 +71,14 @@ public class BaiNghe1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_bai_nghe1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
- //       setSupportActionBar(toolbar);
- //       getSupportActionBar().setDisplayShowHomeEnabled(true);
- //       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_bai_nghe1);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("DATA");
         model = (ListeningModel) bundle.getSerializable("MODEL");
 
-<<<<<<< HEAD
-        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-          //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-          //  setSupportActionBar(toolbar);
-          //  getSupportActionBar().setDisplayShowHomeEnabled(true);
-          //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-=======
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            //   setSupportActionBar(toolbar);
-            //    getSupportActionBar().setDisplayShowHomeEnabled(true);
-            //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
-        final Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
->>>>>>> abcf99a4ee12d892bb48f12d509a535413cffba4
-//
 //        mShaker = new ShakeListener(this);
 //        mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
 //            public void onShake() {
@@ -200,7 +178,14 @@ public class BaiNghe1 extends AppCompatActivity {
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             txt_tran.setText(model.getTranscript(), TextView.BufferType.SPANNABLE);
             txt_tran.setVisibility(View.VISIBLE);
-            song.pause();
+            Time_end = song.getDuration();
+            long PhutKetThuc = TimeUnit.MILLISECONDS.toMinutes((long) Time_end);
+            long GiayKetThuc = TimeUnit.MILLISECONDS.toSeconds((long) Time_end) - PhutKetThuc * 60;
+            if (GiayKetThuc < 10) {
+                txt_end.setText(String.format("%d:0%d", PhutKetThuc, GiayKetThuc));
+            } else {
+                txt_end.setText(String.format("%d:%d", PhutKetThuc, GiayKetThuc));
+            }
             OnProgressChanged(seekBar);
             updateProgressBar();
         }
@@ -241,6 +226,12 @@ public class BaiNghe1 extends AppCompatActivity {
                 }
             }
         });
+
+        if (savedInstanceState != null) {
+            int temp = song.getCurrentPosition();
+            current = savedInstanceState.getInt(temp);
+        }
+
 
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -385,6 +376,7 @@ public class BaiNghe1 extends AppCompatActivity {
                 txt_start.setText(String.format("%d:%d", PhutBatDau, GiayBatDau));
             }
             seekBar.setProgress((int) Time_start);
+            savingPreference();
             Myhandler.postDelayed(this, 100);
         }
     };
@@ -470,30 +462,8 @@ public class BaiNghe1 extends AppCompatActivity {
         return (Integer[]) indices.toArray(new Integer[0]);
     }
 
-<<<<<<< HEAD
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-=======
-    public void savingPreference() {
-        SharedPreferences sharedPreferences = getSharedPreferences(prefname, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        double vitri;
-        if (song.isPlaying()) {
-            vitri = song.getCurrentPosition();
-        } else {
-            vitri = 0.00;
-        }
 
-        editor.putFloat("vitri", (float) vitri);
-        editor.commit();
-    }
 
-    public void restoringPreference(){
-        SharedPreferences sharedPreferences = getSharedPreferences(prefname, MODE_PRIVATE);
-        float vitri = sharedPreferences.getFloat("vitri", 0);
->>>>>>> abcf99a4ee12d892bb48f12d509a535413cffba4
-    }
 }
 
 

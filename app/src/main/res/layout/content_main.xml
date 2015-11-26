@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" tools:showIn="@layout/app_bar_main"
     tools:context=".MainActivity"
-    android:background="#FFCFE4F8">
+    android:background="#FFFFFF">
 
     <GridView
         android:layout_centerInParent="true"
@@ -15,6 +15,6 @@
         android:layout_width="match_parent"
         android:id="@+id/gv"
         android:numColumns="auto_fit"
-        android:background="#FFCFE4F8">
+        android:background="#FFFFFF">
     </GridView>
 </RelativeLayout>

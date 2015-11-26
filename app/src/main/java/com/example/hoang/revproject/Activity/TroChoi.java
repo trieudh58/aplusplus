@@ -4,10 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -44,36 +41,36 @@ public class TroChoi extends AppCompatActivity {
 
     public void khoiTaoManChoi(LinearLayout linear1, LinearLayout linear2, LinearLayout linear3, String tumoi) {
 
-        TextView tv[] = new TextView[tumoi.length()];
-        tv = khoiTaoTextView(linear1, tumoi);
+        Button btnOChu[] = new Button[tumoi.length()];
+        btnOChu = khoiTaoOChu(linear1, tumoi);
 
         Button btn[] = new Button[14];
         btn = khoiTaoButton(linear2, linear3, taoChuoi(tumoi));
 
-        taoSuKien(tv, btn, linear1, linear2, linear3, tumoi);
+        taoSuKien(btnOChu, btn, linear1, linear2, linear3, tumoi);
     }
 
-    public TextView[] khoiTaoTextView(LinearLayout linear, String a) {
+    public Button[] khoiTaoOChu(LinearLayout linear, String a) {
 
-        TextView[] tv = new TextView[a.length()];
+        Button[] btnOChu = new Button[a.length()];
 
         for (int i = 0; i < a.length(); i++) {
 
-            tv[i] = new TextView(this);
+            btnOChu[i] = new Button(this);
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             lp.setMargins(10, 0, 0, 0);
             lp.weight = 1;
-            tv[i].setLayoutParams(lp);
-            tv[i].setBackgroundColor(Color.BLUE);
-            tv[i].setTextColor(Color.WHITE);
-            tv[i].setTextSize(15);
-            tv[i].setGravity(Gravity.CENTER);
-            linear.addView(tv[i]);
+            btnOChu[i].setLayoutParams(lp);
+            btnOChu[i].setBackgroundResource(R.drawable.btn_toper);
+            btnOChu[i].setTextColor(Color.BLACK);
+            btnOChu[i].setTextSize(18);
+            btnOChu[i].setGravity(Gravity.CENTER);
+            linear.addView(btnOChu[i]);
         }
 
-        return tv;
+        return btnOChu;
     }
 
     public Button[] khoiTaoButton(LinearLayout linear1, LinearLayout linear2, char a[]) {
@@ -87,10 +84,11 @@ public class TroChoi extends AppCompatActivity {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             lp.weight = 1;
-            lp.setMargins(5,5,5,5);
+            lp.setMargins(14,5,5,5);
             btn[i].setLayoutParams(lp);
             btn[i].setTextColor(Color.WHITE);
-            btn[i].setBackgroundResource(R.drawable.button_background);
+            btn[i].setTextSize(18);
+            btn[i].setBackgroundResource(R.drawable.btn_below);
 
             if (i < 7) {
                 linear1.addView(btn[i]);
@@ -128,10 +126,10 @@ public class TroChoi extends AppCompatActivity {
 
     int t[] = new int[14];
 
-    public void taoSuKien(final TextView tv[], final Button btn[], final LinearLayout linear,
+    public void taoSuKien(final Button btnOChu[], final Button btn[], final LinearLayout linear,
                           final LinearLayout linear1, final LinearLayout linear2, final String tu) {
 
-        final int n = tv.length;
+        final int n = btnOChu.length;
 
 
         for (int i = 0; i < 14; i++) {
@@ -145,19 +143,19 @@ public class TroChoi extends AppCompatActivity {
 
                     for (int j = 0; j < n; j++) {
 
-                        if (tv[j].getText() == "") {
+                        if (btnOChu[j].getText() == "") {
 
-                            tv[j].setText(btn[a].getText());
+                            btnOChu[j].setText(btn[a].getText());
 
                             btn[a].setVisibility(View.INVISIBLE);
 
                             t[j] = a;
 
-                            if ( !chuoiTv(tv).equals(tu) && !chuoiTv(tv).equals("") ) {
+                            if ( !chuoiTv(btnOChu).equals(tu) && !chuoiTv(btnOChu).equals("") ) {
 
                                 Toast toast = Toast.makeText(TroChoi.this, "Từ mới chưa đúng!", Toast.LENGTH_SHORT);
                                 toast.show();
-                            } else if ( chuoiTv(tv).equals(tu) ) {
+                            } else if ( chuoiTv(btnOChu).equals(tu) ) {
 
                                 AlertDialog.Builder dialog = new AlertDialog.Builder(TroChoi.this);
                                 dialog.setTitle("Chính xác!!!");
@@ -168,7 +166,7 @@ public class TroChoi extends AppCompatActivity {
 
                                         for (int i = 0; i < n; i++) {
 
-                                            linear.removeView(tv[i]);
+                                            linear.removeView(btnOChu[i]);
                                         }
 
                                         for (int i = 0; i < 14; i++) {
@@ -198,17 +196,17 @@ public class TroChoi extends AppCompatActivity {
 
             final int a = i;
 
-            tv[i].setOnClickListener(new View.OnClickListener() {
+            btnOChu[i].setOnClickListener(new View.OnClickListener() {
 
 
                 @Override
                 public void onClick(View v) {
 
-                    if (tv[a].getText() != "") {
+                    if (btnOChu[a].getText() != "") {
 
                         btn[t[a]].setVisibility(View.VISIBLE);
 
-                        tv[a].setText("");
+                        btnOChu[a].setText("");
 
                     }
                 }

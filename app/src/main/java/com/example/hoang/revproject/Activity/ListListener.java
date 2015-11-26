@@ -10,17 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.example.hoang.revproject.Adapter.ListeningAdapter;
 import com.example.hoang.revproject.Model.AlarmDBHelper;
 import com.example.hoang.revproject.Model.ListeningModel;
 import com.example.hoang.revproject.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListListener extends AppCompatActivity {
@@ -51,6 +46,11 @@ public class ListListener extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(ListListener.this, MainActivity.class);
+        startActivity(intent);
     }
 
 }
