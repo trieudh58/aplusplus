@@ -6,6 +6,7 @@ package com.example.hoang.revproject.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -48,12 +49,12 @@ import java.util.concurrent.TimeUnit;
 
 public class BaiNghe1 extends AppCompatActivity {
 
-    ImageView btn_stop ,btn_prev, btn_play, btn_next, img_topic;
-    TextView txt_start , txt_end, txt_topic, txt_tran;
+    ImageView btn_stop, btn_prev, btn_play, btn_next, img_topic;
+    TextView txt_start, txt_end, txt_topic, txt_tran;
     ToggleButton btn_show, btn_like, btn_reapeat;
     SeekBar seekBar;
     MediaPlayer song;
-    double Time_start=0 , Time_end=0;
+    double Time_start = 0, Time_end = 0;
     private Handler Myhandler = new Handler();
     private AlarmDBHelper dbHelper;
     ActionMode.Callback actionModeCallback;
@@ -65,6 +66,7 @@ public class BaiNghe1 extends AppCompatActivity {
     boolean check, isFavorite = false, isRepeat = false;
     CoordinatorLayout coordinatorLayout;
     ListeningModel model;
+    private String prefname = "my_data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +78,14 @@ public class BaiNghe1 extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("DATA");
         model = (ListeningModel) bundle.getSerializable("MODEL");
 
-        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //   setSupportActionBar(toolbar);
-        //    getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //   setSupportActionBar(toolbar);
+            //    getSupportActionBar().setDisplayShowHomeEnabled(true);
+            //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 //
 //        mShaker = new ShakeListener(this);
 //        mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
@@ -110,7 +112,7 @@ public class BaiNghe1 extends AppCompatActivity {
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                if (status != TextToSpeech.ERROR){
+                if (status != TextToSpeech.ERROR) {
                     tts.setLanguage(Locale.ENGLISH);
                 }
             }
@@ -148,7 +150,7 @@ public class BaiNghe1 extends AppCompatActivity {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.listen:
                         tts.speak(s.toString(), TextToSpeech.QUEUE_FLUSH, null);
                         return true;
@@ -295,12 +297,12 @@ public class BaiNghe1 extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (MotionEvent.ACTION_DOWN == event.getAction()) {
                     btn_prev.setImageResource(R.drawable.prev_focused);
-                    check=true;
+                    check = true;
                     song.seekTo((int) song.getCurrentPosition() - 3000);
                     Myhandler.postDelayed(Lui, 500);
                 } else if (MotionEvent.ACTION_UP == event.getAction()) {
                     btn_prev.setImageResource(R.drawable.prev_deafult);
-                    check=false;
+                    check = false;
                 }
                 return true;
             }
@@ -321,11 +323,11 @@ public class BaiNghe1 extends AppCompatActivity {
         song.pause();
     }
 
-    public void updateProgressBar(){
+    public void updateProgressBar() {
         Myhandler.postDelayed(Capnhat, 100);
     }
 
-    public void OnProgressChanged(final SeekBar s){
+    public void OnProgressChanged(final SeekBar s) {
         s.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -351,13 +353,12 @@ public class BaiNghe1 extends AppCompatActivity {
     private Runnable Capnhat = new Runnable() {
         @Override
         public void run() {
-            Time_start=song.getCurrentPosition();
+            Time_start = song.getCurrentPosition();
             long PhutBatDau = TimeUnit.MILLISECONDS.toMinutes((long) Time_start);
-            long GiayBatDau = TimeUnit.MILLISECONDS.toSeconds((long) Time_start) - PhutBatDau*60;
-            if(GiayBatDau < 10){
+            long GiayBatDau = TimeUnit.MILLISECONDS.toSeconds((long) Time_start) - PhutBatDau * 60;
+            if (GiayBatDau < 10) {
                 txt_start.setText(String.format("%d:0%d", PhutBatDau, GiayBatDau));
-            }
-            else {
+            } else {
                 txt_start.setText(String.format("%d:%d", PhutBatDau, GiayBatDau));
             }
             seekBar.setProgress((int) Time_start);
@@ -368,7 +369,7 @@ public class BaiNghe1 extends AppCompatActivity {
     private Runnable Tua = new Runnable() {
         @Override
         public void run() {
-            if(check==true) {
+            if (check == true) {
                 song.seekTo((int) song.getCurrentPosition() + 3000);
                 Myhandler.postDelayed(this, 500);
             }
@@ -378,7 +379,7 @@ public class BaiNghe1 extends AppCompatActivity {
     private Runnable Lui = new Runnable() {
         @Override
         public void run() {
-            if(check==true) {
+            if (check == true) {
                 song.seekTo((int) song.getCurrentPosition() - 3000);
                 Myhandler.postDelayed(this, 500);
             }
@@ -387,7 +388,7 @@ public class BaiNghe1 extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        if(tts !=null){
+        if (tts != null) {
             tts.stop();
             tts.shutdown();
         }
@@ -395,8 +396,8 @@ public class BaiNghe1 extends AppCompatActivity {
         super.onPause();
     }
 
-    public void getEachWord(TextView textView){
-        Spannable spans = (Spannable)textView.getText();
+    public void getEachWord(TextView textView) {
+        Spannable spans = (Spannable) textView.getText();
         Integer[] indices = getIndices(
                 textView.getText().toString().trim(), ' ');
         int start = 0;
@@ -413,7 +414,8 @@ public class BaiNghe1 extends AppCompatActivity {
 
         textView.setHighlightColor(Color.BLUE);
     }
-    private ClickableSpan getClickableSpan(){
+
+    private ClickableSpan getClickableSpan() {
         return new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -426,6 +428,7 @@ public class BaiNghe1 extends AppCompatActivity {
 
                 Log.d("tapped on:", s);
             }
+
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setColor(Color.BLACK);
@@ -442,6 +445,25 @@ public class BaiNghe1 extends AppCompatActivity {
             pos = s.indexOf(c, pos + 1);
         }
         return (Integer[]) indices.toArray(new Integer[0]);
+    }
+
+    public void savingPreference() {
+        SharedPreferences sharedPreferences = getSharedPreferences(prefname, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        double vitri;
+        if (song.isPlaying()) {
+            vitri = song.getCurrentPosition();
+        } else {
+            vitri = 0.00;
+        }
+
+        editor.putFloat("vitri", (float) vitri);
+        editor.commit();
+    }
+
+    public void restoringPreference(){
+        SharedPreferences sharedPreferences = getSharedPreferences(prefname, MODE_PRIVATE);
+        float vitri = sharedPreferences.getFloat("vitri", 0);
     }
 }
 
