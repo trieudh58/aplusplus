@@ -4,16 +4,11 @@ package com.example.hoang.revproject.Activity;
  * Created by An on 08/11/2015.
  */
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,7 +19,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -35,7 +29,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -46,7 +39,6 @@ import android.widget.ToggleButton;
 import com.example.hoang.revproject.Model.AlarmDBHelper;
 import com.example.hoang.revproject.Model.ListeningModel;
 import com.example.hoang.revproject.Model.MyVocabularyModel;
-import com.example.hoang.revproject.Model.ShakeListener;
 import com.example.hoang.revproject.R;
 
 import java.util.ArrayList;
@@ -86,9 +78,9 @@ public class BaiNghe1 extends AppCompatActivity {
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //   setSupportActionBar(toolbar);
+        //    getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
