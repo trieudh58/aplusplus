@@ -7,11 +7,8 @@ package com.example.hoang.revproject.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +19,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -78,9 +74,9 @@ public class BaiNghe1 extends AppCompatActivity {
 
         setContentView(R.layout.content_bai_nghe1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+ //       setSupportActionBar(toolbar);
+ //       getSupportActionBar().setDisplayShowHomeEnabled(true);
+ //       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);

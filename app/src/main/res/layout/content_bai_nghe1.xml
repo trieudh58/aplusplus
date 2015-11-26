@@ -1,136 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal">
-
+    android:background="#FFCFE4F8">
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:id="@+id/linearLayout">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/Txt_Topic"
+                    android:textSize="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="An Chu"
+                    android:textColor="#000000"
+                    android:gravity="center" />
+            </RelativeLayout>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/btn_stop"
-            android:layout_marginRight="5dp"
-            android:id="@+id/btn_stop" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/Image_Topic"
+                android:visibility="visible"/>
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/scrollView">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Txt_Transcrip"
+                    android:visibility="invisible"/>
+            </ScrollView>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal"
+            android:weightSum="10">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5">
+                <ToggleButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:textOff=""
+                    android:textOn=""
+                    android:background="@drawable/btn_like"
+                    android:id="@+id/btn_like"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:orientation="vertical"
+                android:weightSum="2">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1">
+                   <SeekBar
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:indeterminate="false"
+                       android:id="@+id/SeekBar"
+                       android:layout_marginRight="15dp"
+                       android:layout_gravity="bottom"/>
+               </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:weightSum="10"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/TxTStart"
+                        android:layout_weight="1"
+                        android:layout_gravity="top"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"/>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/TxtEnd"
+                        android:layout_weight="1"
+                        android:layout_gravity="top"/>
+                </LinearLayout>
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/btn_prev"
-            android:layout_marginRight="10dp"
-            android:id="@+id/btn_prev" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5">
+                <ToggleButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:textOff=""
+                    android:textOn=""
+                    android:background="@drawable/btn_show"
+                    android:id="@+id/btn_show"/>
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/btn_play"
-            android:layout_marginRight="10dp"
-            android:id="@+id/btn_play" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/btn_next"
-            android:layout_marginRight="5dp"
-            android:id="@+id/btn_next" />
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/btn_stop"
+                    android:id="@+id/btn_stop"
+                    android:layout_weight="1"/>
 
-        <ToggleButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textOn=""
-            android:textOff=""
-            android:background="@drawable/btn_reapeat"
-            android:layout_marginRight="5dp"
-            android:id="@+id/btn_reapeat" />
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/btn_prev"
+                    android:id="@+id/btn_prev"
+                    android:layout_weight="2.5"/>
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/btn_play"
+                    android:id="@+id/btn_play"
+                    android:layout_weight="3"/>
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/btn_next"
+                    android:id="@+id/btn_next"
+                    android:layout_weight="2.5"/>
+
+                <ToggleButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textOn=""
+                    android:textOff=""
+                    android:background="@drawable/btn_reapeat"
+                    android:id="@+id/btn_reapeat"
+                    android:layout_weight="1"/>
+
+                <ToggleButton
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:id="@+id/btn_show"/>
+
+        </LinearLayout>
+
     </LinearLayout>
-
-    <SeekBar
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/SeekBar"
-        android:layout_above="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:indeterminate="false" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="..."
-        android:id="@+id/TxTStart"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignLeft="@+id/SeekBar"
-        android:layout_alignStart="@+id/SeekBar"
-        android:layout_marginBottom="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="..."
-        android:id="@+id/TxtEnd"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignRight="@+id/SeekBar"
-        android:layout_alignEnd="@+id/SeekBar"
-        android:layout_marginBottom="10dp"/>
-
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:id="@+id/Image_Topic"
-        android:layout_marginTop="105dp"
-        android:visibility="visible"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/btn_like" />
-
-    <ToggleButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/btn_like"
-        android:textOff=""
-        android:textOn=""
-        android:background="@drawable/btn_like"
-        android:layout_above="@+id/SeekBar"
-        android:layout_marginLeft="5dp" />
-
-    <ToggleButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/btn_show"
-        android:textOff=""
-        android:textOn=""
-        android:background="@drawable/btn_show"
-        android:layout_above="@+id/SeekBar"
-        android:layout_toEndOf="@+id/Image_Topic" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/Txt_Topic"
-        android:layout_marginTop="65dp"
-        android:layout_centerHorizontal="true" />
-
-    <ScrollView
-        android:layout_width="340dp"
-        android:layout_height="230dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/scrollView">
-        <TextView
-            android:layout_width="325dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/Txt_Transcrip"
-            android:visibility="invisible" />
-    </ScrollView>
 
 </RelativeLayout>
