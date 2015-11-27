@@ -40,12 +40,10 @@ public class RVNotificationAdapter extends RecyclerView.Adapter<RVNotificationAd
     private View mView;
     private WindowManager windowManager;
 
-    public RVNotificationAdapter(Context mContext, List<VocabularyModel> arr, View view){
+    public RVNotificationAdapter(Context mContext, List<VocabularyModel> arr){
         this.mContext = mContext;
         this.arrVocab = arr;
         dbHelper = new AlarmDBHelper(mContext);
-        this.mView = view;
-        windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
     }
 
     @Override

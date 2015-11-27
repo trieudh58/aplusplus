@@ -2,6 +2,7 @@ package com.example.hoang.revproject.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hoang.revproject.R;
@@ -24,7 +26,8 @@ public class AlarmScreenActivity extends AppCompatActivity {
     private EditText enterWord;
     private Button wakeUp;
     private TextView showTime, showDate;
-    private String vocabulary = "";
+    private String vocabulary = "", image;
+    private ImageView imageView;
     private PowerManager.WakeLock mWakeLock;
     private MediaPlayer mediaPlayer;
     public final String TAG = this.getClass().getSimpleName();
@@ -42,6 +45,7 @@ public class AlarmScreenActivity extends AppCompatActivity {
         wakeUp = (Button) findViewById(R.id.alarm_screen_button);
         showTime = (TextView) findViewById(R.id.alarm_screen_time);
         showDate = (TextView) findViewById(R.id.alarm_screen_date);
+        imageView = (ImageView) findViewById(R.id.alarm_screen_image);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("DATA");
@@ -49,8 +53,13 @@ public class AlarmScreenActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         showDate.setText(String.format("%1$tA %1$tb %1$td %1$tY", calendar));
         vocabulary = bundle.getString("vocabulary");
+        image = bundle.getString("image");
         String tone = bundle.getString("tone");
         int volume = bundle.getInt("volume");
+
+        int imageResource = this.getResources().getIdentifier(image, null, this.getPackageName());
+        Drawable res = this.getResources().getDrawable(imageResource);
+        imageView.setImageDrawable(res);
 
         mediaPlayer = new MediaPlayer();
         try {

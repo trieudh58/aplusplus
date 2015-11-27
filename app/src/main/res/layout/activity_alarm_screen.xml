@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/alarm_screen">
+    android:background="#FFCFE4F8">
 
     <TextView
         android:id="@+id/alarm_screen_time"
@@ -12,7 +12,7 @@
         android:layout_marginLeft="10dp"
         android:textColor="@color/green"
         android:text="@string/alarm_screen_time"
-        android:textSize="52pt" />
+        android:textSize="45pt" />
 
     <TextView
         android:id="@+id/alarm_screen_date"
@@ -26,25 +26,30 @@
         android:layout_centerHorizontal="true"
         android:text="@string/alarm_screen_time" />
 
-    <TextView
-        android:id="@+id/alarm_screen_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/alarm_screen_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_below="@+id/alarm_screen_date"
         android:layout_centerHorizontal="true"
         android:textColor="@color/green"
-        android:layout_marginTop="20dp"
-        android:textSize="30dp"
-        android:text="@string/alarm_screen_instruction" />
+        android:layout_marginTop="20dp" />
 
-    <EditText
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/alarm_screen_name"
-        android:id="@+id/enterWord"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="40dp"/>
+        android:id="@+id/edit"
+        android:layout_below="@id/alarm_screen_image">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/enterWord"
+            android:layout_marginTop="10dp"
+            android:hint="enter your word"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="40dp"/>
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/alarm_screen_button"
@@ -52,10 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="50dp"
-        android:layout_below="@id/enterWord"
-        android:background="#e10a27"
+        android:layout_below="@id/edit"
+        android:background="@color/colorPrimary"
         android:text="@string/alarm_screen_button"
         android:textSize="30dp" />
 

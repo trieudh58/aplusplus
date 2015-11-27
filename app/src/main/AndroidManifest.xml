@@ -53,7 +53,8 @@
             android:enabled="true" >
         </service>
 
-        <activity android:name=".Activity.AlarmScreenActivity" >
+        <activity android:name=".Activity.AlarmScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".Activity.SettingsActivity" >
         </activity>

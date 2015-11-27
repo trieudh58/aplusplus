@@ -129,7 +129,7 @@ public class SettingsService extends Service{
         arrVocabNoti = database.getListWordsToday(1);
         arrVocabNoti.add(notiModel);
         database.updateVocab(notiModel);
-        adapter = new RVNotificationAdapter(this.getApplicationContext(), arrVocabNoti, mView);
+        adapter = new RVNotificationAdapter(this.getApplicationContext(), arrVocabNoti);
         RecyclerView recyclerView = (RecyclerView) mView.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);

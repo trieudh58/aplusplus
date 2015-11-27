@@ -229,7 +229,7 @@ public class BaiNghe1 extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             int temp = song.getCurrentPosition();
-            current = savedInstanceState.getInt(temp);
+//            current = savedInstanceState.getInt(temp);
         }
 
 
@@ -376,7 +376,7 @@ public class BaiNghe1 extends AppCompatActivity {
                 txt_start.setText(String.format("%d:%d", PhutBatDau, GiayBatDau));
             }
             seekBar.setProgress((int) Time_start);
-            savingPreference();
+//            savingPreference();
             Myhandler.postDelayed(this, 100);
         }
     };

@@ -38,7 +38,7 @@ public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.List
     public ListeningAdapter(Context mContext, List<ListeningModel> arr){
         this.mContext = mContext;
         this.listeningModels = arr;
-        Toast.makeText(mContext, listeningModels.size() + "", Toast.LENGTH_LONG).show();
+//        Toast.makeText(mContext, listeningModels.size() + "", Toast.LENGTH_LONG).show();
         dbHelper = new AlarmDBHelper(mContext);
     }
 

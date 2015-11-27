@@ -44,11 +44,11 @@ public class AlarmManagerHelper extends BroadcastReceiver {
                 if (alarmModel.isRepeatingDay() == false) {
                     if (alarmModel.timeHour > nowHour || (alarmModel.timeHour == nowHour && alarmModel.timeMinute > nowMinute)) {
                         setAlarm(mContext, calendar, pendingIntent);
-                        Toast.makeText(mContext, calendar.get(Calendar.DATE) + "-" + calendar.get(Calendar.HOUR_OF_DAY) + "-" + calendar.get(Calendar.MINUTE) + " alarm.hour > nowhour", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(mContext, calendar.get(Calendar.DATE) + "-" + calendar.get(Calendar.HOUR_OF_DAY) + "-" + calendar.get(Calendar.MINUTE) + " alarm.hour > nowhour", Toast.LENGTH_LONG).show();
                     } else {
                         calendar.add(Calendar.DATE, 1);
                         setAlarm(mContext, calendar, pendingIntent);
-                        Toast.makeText(mContext, calendar.get(Calendar.DATE) + "-" + calendar.get(Calendar.HOUR_OF_DAY) + "-" + calendar.get(Calendar.MINUTE) + "", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(mContext, calendar.get(Calendar.DATE) + "-" + calendar.get(Calendar.HOUR_OF_DAY) + "-" + calendar.get(Calendar.MINUTE) + "", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     for (int dayOfWeek = Calendar.SUNDAY; dayOfWeek <= Calendar.SATURDAY; dayOfWeek++) {
@@ -57,7 +57,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
                                 && !(dayOfWeek == nowDay && alarmModel.timeHour == nowHour && alarmModel.timeMinute <= nowMinute)) {
                             calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
                             setAlarm(mContext, calendar, pendingIntent);
-                            Toast.makeText(mContext, calendar.get(Calendar.DAY_OF_WEEK) + " - " + calendar.get(Calendar.MONTH) + " - " + calendar.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(mContext, calendar.get(Calendar.DAY_OF_WEEK) + " - " + calendar.get(Calendar.MONTH) + " - " + calendar.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
                             alarmSet = true;
                             break;
                         }
@@ -69,7 +69,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
                                 calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
                                 calendar.add(Calendar.WEEK_OF_YEAR, 1);
                                 setAlarm(mContext, calendar, pendingIntent);
-                                Toast.makeText(mContext, "  I'm Not Here", Toast.LENGTH_LONG).show();
+//                                Toast.makeText(mContext, "  I'm Not Here", Toast.LENGTH_LONG).show();
                                 break;
                             }
                         }
@@ -136,13 +136,13 @@ public class AlarmManagerHelper extends BroadcastReceiver {
             } else {
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), 1000*60*5, pendingIntent);
             }
-            Toast.makeText(mContext, "Dang o day", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "Dang o day", Toast.LENGTH_SHORT).show();
         }else{
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                 alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(),1000*60*5, pendingIntent);
             } else {
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), 1000 * 60 * 5, pendingIntent);
-                Toast.makeText(mContext, "Dang o kia", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "Dang o kia", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -162,6 +162,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         bundle.putInt("timeHour", model.timeHour);
         bundle.putInt("timeMinute", model.timeMinute);
         bundle.putInt("volume", model.volume);
+        bundle.putString("image", model.image);
         bundle.putString("tone", String.valueOf(model.alarmTone));
         intent.putExtra("DATA", bundle);
         return PendingIntent.getService(context, model.id, intent, PendingIntent.FLAG_UPDATE_CURRENT);

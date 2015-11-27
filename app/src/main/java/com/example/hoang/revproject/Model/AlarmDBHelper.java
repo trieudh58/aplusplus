@@ -30,6 +30,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ALARM_RING_TONE = "tone";
     public static final String COLUMN_ALARM_VOCABULARY = "vocabulary";
     public static final String COLUMN_ALARM_ENABLED = "isEnabled";
+    public static final String COLUMN_ALARM_IMAGE = "image";
 
 
     // vocabulary table
@@ -73,6 +74,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
                                                     + COLUMN_ALARM_VOCABULARY + " text, "
                                                     + COLUMN_ALARM_DAYS + " text, "
                                                     + COLUMN_ALARM_VOLUME + " integer, "
+                                                    + COLUMN_ALARM_IMAGE + " text, "
                                                     + COLUMN_ALARM_ENABLED + " boolean" + ")";
 
     private static final String SQL_CREATE_VOCABULARY = "create table " + TABLE_NAME1 + " ( "
@@ -136,6 +138,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         model.alarmTone = c.getString(c.getColumnIndex(COLUMN_ALARM_RING_TONE)) != ""? Uri.parse(c.getString(c.getColumnIndex(COLUMN_ALARM_RING_TONE))) : null;
         model.Vocabulary = c.getString(c.getColumnIndex(COLUMN_ALARM_VOCABULARY));
         model.volume = c.getInt(c.getColumnIndex(COLUMN_ALARM_VOLUME));
+        model.image = c.getString(c.getColumnIndex(COLUMN_ALARM_IMAGE));
         String[] repeatDays = c.getString(c.getColumnIndex(COLUMN_ALARM_DAYS)).split(",");
         for (int i = 0; i < repeatDays.length; i++){
             model.setRepeatingDay(i, repeatDays[i].equals("false")? false : true);
@@ -214,6 +217,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ALARM_HOUR, model.timeHour);
         values.put(COLUMN_ALARM_MINUTE, model.timeMinute);
         values.put(COLUMN_ALARM_VOLUME, model.volume);
+        values.put(COLUMN_ALARM_IMAGE, model.image);
         values.put(COLUMN_ALARM_RING_TONE, model.alarmTone != null? model.alarmTone.toString() : "");
         String repeat = "";
         for (int i = 0; i < 7; i++){

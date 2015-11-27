@@ -22,6 +22,7 @@ public class AlarmModel {
     public int volume;
     public Uri alarmTone;
     public String Vocabulary;
+    public String image;
     public boolean isEnabled;
 
     public AlarmModel(){

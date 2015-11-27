@@ -177,6 +177,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
             if (requestCode == CHOOSE_WORD){
                 Bundle bundle = data.getBundleExtra("DATA");
                 word.setText(bundle.getString("Word"));
+                alarmDetails.image = bundle.getString("Image");
             }
         }
         if (resultCode == RESULT_OK) {
