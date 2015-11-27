@@ -1,5 +1,6 @@
 package com.example.hoang.revproject.Activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -95,19 +96,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 switch (position){
                     case 0:
                         Intent intent0 = new Intent(MainActivity.this, MyVocabulary.class);
-                        startActivity(intent0);
+                        Bundle bundleAnimation = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            bundleAnimation = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_left, R.anim.slide_out_right).toBundle();
+                            startActivity(intent0, bundleAnimation);
+                        }
                         break;
                     case 1:
                         Intent intent1 = new Intent(MainActivity.this, ListListener.class);
-                        startActivity(intent1);
+                        Bundle bundleAnimation1 = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            bundleAnimation1 = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_left, R.anim.slide_out_right).toBundle();
+                            startActivity(intent1, bundleAnimation1);
+                        }
                         break;
                     case 2:
                         Intent intent2 = new Intent(MainActivity.this, TroChoi.class);
-                        startActivity(intent2);
+                        Bundle bundleAnimation2 = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            bundleAnimation2 = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_left, R.anim.slide_out_right).toBundle();
+                            startActivity(intent2, bundleAnimation2);
+                        }
                         break;
                     case 3:
                         Intent intent3 = new Intent(MainActivity.this, AlarmListActivity.class);
-                        startActivity(intent3);
+                        Bundle bundleAnimation3 = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            bundleAnimation3 = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_left, R.anim.slide_out_right).toBundle();
+                            startActivity(intent3, bundleAnimation3);
+                        }
                         break;
                 }
             }
