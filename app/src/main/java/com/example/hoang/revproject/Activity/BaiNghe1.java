@@ -280,10 +280,10 @@ public class BaiNghe1 extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     isRepeat = true;
-                    Toast.makeText(BaiNghe1.this, "Phát l?i bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "Repeat this audio", Toast.LENGTH_SHORT).show();
                 } else {
                     isRepeat = false;
-                    Toast.makeText(BaiNghe1.this, "H?y phát l?i bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "Abort repeat this audio", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -311,10 +311,10 @@ public class BaiNghe1 extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(BaiNghe1.this, "B?n dă thích bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "You have liked this audio", Toast.LENGTH_SHORT).show();
                     isFavorite = true;
                 } else {
-                    Toast.makeText(BaiNghe1.this, "B?n dă h?y thích bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "You have not liked this audio", Toast.LENGTH_SHORT).show();
                     isFavorite = false;
                 }
             }

@@ -8,10 +8,103 @@
     android:paddingBottom="10dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_about"
-    tools:context="com.example.hoang.revproject.Activity.AboutActivity">
-    <ImageView
+    tools:context="com.example.hoang.revproject.Activity.AboutActivity"
+    android:background="#FFCFE4F8">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/thienhan"/>
+        android:weightSum="10"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="160dp"
+                android:src="@drawable/icon_about"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:text="Phần mềm nhắc nhở học từ vựng REV"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:text="Version 1.0"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:text="Copyright © A++ Team"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"></LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:text="Members:"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:text="An Mai Van: Designer, Developer."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:text="Duc Vu Ngoc: Developer."/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:text="Hung Do Ngoc: Developer, Main coder"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:text="Trieu Dang Hai:  Reporter - System Analysis."/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"></LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:text="Support: rev.ateam@gmail.com"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:text="Tel: +84123456789"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
