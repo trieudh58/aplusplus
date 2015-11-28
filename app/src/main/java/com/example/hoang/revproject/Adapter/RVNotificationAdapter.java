@@ -97,19 +97,6 @@ public class RVNotificationAdapter extends RecyclerView.Adapter<RVNotificationAd
             word = (TextView) view.findViewById(R.id.title);
             meanOfWord = (TextView) view.findViewById(R.id.description);
             wordImage = (ImageView) view.findViewById(R.id.imgNoti);
-
-            container.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mContext, ShowWordActivity.class);
-                    VocabularyModel model = arrVocab.get(getAdapterPosition());
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("MODEL", model);
-                    intent.putExtra("DATA", bundle);
-                    mContext.startActivity(intent);
-                    windowManager.removeView(mView);
-                }
-            });
         }
 
         @Override

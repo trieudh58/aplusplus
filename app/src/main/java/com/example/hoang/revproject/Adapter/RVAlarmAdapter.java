@@ -1,6 +1,8 @@
 package com.example.hoang.revproject.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import com.example.hoang.revproject.Model.AlarmManagerHelper;
 import com.example.hoang.revproject.Model.AlarmModel;
 import com.example.hoang.revproject.R;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -114,13 +117,33 @@ public class RVAlarmAdapter extends RecyclerView.Adapter<RVAlarmAdapter.Recycler
     }
 
     @Override
-    public void onItemDismiss(int position) {
-        dbHelper.deleteAlarm(list.get(position).id);
-        list.remove(position);
-        notifyItemRemoved(position);
+    public void onItemDismiss(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("Do you want to remove this Alarm");
+        builder.setTitle("Remove");
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                List<AlarmModel> arr = new ArrayList<AlarmModel>();
+                arr = dbHelper.getListAlarms();
+                list.clear();
+                list.addAll(arr);
+                notifyDataSetChanged();
+            }
+        });
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dbHelper.deleteAlarm(list.get(position).id);
+                list.remove(position);
+                notifyItemRemoved(position);
+            }
+        });
+        builder.show();
     }
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private CardView container;
         private TextView alarmTime;

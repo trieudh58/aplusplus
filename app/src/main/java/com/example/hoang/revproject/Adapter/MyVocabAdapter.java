@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,15 +21,17 @@ import com.example.hoang.revproject.Model.AlarmDBHelper;
 import com.example.hoang.revproject.Model.MyVocabularyModel;
 import com.example.hoang.revproject.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by hoang on 11/6/2015.
  */
-public class MyVocabAdapter extends BaseAdapter {
+public class MyVocabAdapter extends BaseAdapter implements Filterable{
 
     private List<MyVocabularyModel> arr;
+    private List<MyVocabularyModel> orig;
     private Context mContext;
     private AlarmDBHelper dbHelper;
     private TextToSpeech textToSpeech;
@@ -98,6 +102,34 @@ public class MyVocabAdapter extends BaseAdapter {
         return convertView;
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final List<MyVocabularyModel> results = new ArrayList<MyVocabularyModel>();
+                if (orig == null)
+                    orig = arr;
+                if (constraint != null){
+                    if(orig != null & orig.size() > 0){
+                        for (final MyVocabularyModel g : orig){
+                            if(g.getWord().toLowerCase().contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                arr = (ArrayList<MyVocabularyModel>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
 
     public class ViewHolder{
