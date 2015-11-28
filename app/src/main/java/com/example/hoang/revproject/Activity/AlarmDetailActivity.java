@@ -207,10 +207,10 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     alarmDetails.setRepeatingDay(AlarmModel.MONDAY, true);
                     Monday.setSelected(true);
                     Monday.setPressed(true);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.MONDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.MONDAY)), Toast.LENGTH_SHORT).show();
                 }else {
                     alarmDetails.setRepeatingDay(AlarmModel.MONDAY, false);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.MONDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.MONDAY)), Toast.LENGTH_SHORT).show();
                     Monday.setSelected(false);
                     Monday.setPressed(false);
                 }
@@ -221,10 +221,10 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     alarmDetails.setRepeatingDay(AlarmModel.TUESDAY, true);
                     Tuesday.setSelected(true);
                     Tuesday.setPressed(true);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.TUESDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.TUESDAY)), Toast.LENGTH_SHORT).show();
                 }else {
                     alarmDetails.setRepeatingDay(AlarmModel.TUESDAY, false);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.TUESDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.TUESDAY)), Toast.LENGTH_SHORT).show();
                     Tuesday.setSelected(false);
                     Tuesday.setPressed(false);
                 }
@@ -235,10 +235,10 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     alarmDetails.setRepeatingDay(AlarmModel.WEDNESDAY, true);
                     Wednesday.setSelected(true);
                     Wednesday.setPressed(true);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.WEDNESDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.WEDNESDAY)), Toast.LENGTH_SHORT).show();
                 }else {
                     alarmDetails.setRepeatingDay(AlarmModel.WEDNESDAY, false);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.WEDNESDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.WEDNESDAY)), Toast.LENGTH_SHORT).show();
                     Wednesday.setSelected(false);
                     Wednesday.setPressed(false);
                 }
@@ -249,10 +249,10 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     alarmDetails.setRepeatingDay(AlarmModel.THUSDAY, true);
                     Thursday.setSelected(true);
                     Thursday.setPressed(true);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.THUSDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.THUSDAY)), Toast.LENGTH_SHORT).show();
                 }else {
                     alarmDetails.setRepeatingDay(AlarmModel.THUSDAY, false);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.THUSDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.THUSDAY)), Toast.LENGTH_SHORT).show();
                     Thursday.setSelected(false);
                     Thursday.setPressed(false);
                 }
@@ -263,10 +263,10 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     alarmDetails.setRepeatingDay(AlarmModel.FRIDAY, true);
                     Friday.setSelected(true);
                     Friday.setPressed(true);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.FRIDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.FRIDAY)), Toast.LENGTH_SHORT).show();
                 }else {
                     alarmDetails.setRepeatingDay(AlarmModel.FRIDAY, false);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.FRIDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.FRIDAY)), Toast.LENGTH_SHORT).show();
                     Friday.setSelected(false);
                     Friday.setPressed(false);
                 }
@@ -277,10 +277,10 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     alarmDetails.setRepeatingDay(AlarmModel.SATURDAY, true);
                     Saturday.setSelected(true);
                     Saturday.setPressed(true);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.SATURDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.SATURDAY)), Toast.LENGTH_SHORT).show();
                 }else {
                     alarmDetails.setRepeatingDay(AlarmModel.SATURDAY, false);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.SATURDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.SATURDAY)), Toast.LENGTH_SHORT).show();
                     Saturday.setSelected(false);
                     Saturday.setPressed(false);
                 }
@@ -291,10 +291,10 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     alarmDetails.setRepeatingDay(AlarmModel.SUNDAY, true);
                     Sunday.setSelected(true);
                     Sunday.setPressed(true);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.SUNDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.SUNDAY)), Toast.LENGTH_SHORT).show();
                 }else {
                     alarmDetails.setRepeatingDay(AlarmModel.SUNDAY, false);
-                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.SUNDAY)), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AlarmDetailActivity.this, String.valueOf(alarmDetails.getRepeatingDay(AlarmModel.SUNDAY)), Toast.LENGTH_SHORT).show();
                     Sunday.setSelected(false);
                     Sunday.setPressed(false);
                 }

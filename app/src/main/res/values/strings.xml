@@ -29,7 +29,7 @@
     <string name="title_activity_list_listener">List Listening</string>
     <string name="title_activity_bai_nghe1">Listening</string>
     <string name="title_activity_history">Vocabulary History</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_splash_screen">REV</string>
     <string name="title_activity_tro_choi">Games</string>
     <string name="title_activity_about">A++ Team</string>
 </resources>
