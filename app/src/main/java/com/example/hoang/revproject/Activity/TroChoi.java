@@ -216,14 +216,14 @@ public class TroChoi extends AppCompatActivity {
 
                             if ( !chuoiTv(btnOChu, tu.length()).equals(tu) && !chuoiTv(btnOChu, tu.length()).equals("") ) {
 
-                                Toast toast = Toast.makeText(TroChoi.this, "Từ mới chưa đúng!", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(TroChoi.this, "Wrong word!", Toast.LENGTH_SHORT);
                                 toast.show();
                             } else if ( chuoiTv(btnOChu, tu.length()).equals(tu) ) {
 
                                 AlertDialog.Builder dialog = new AlertDialog.Builder(TroChoi.this);
-                                dialog.setTitle("Chính xác!!!");
+                                dialog.setTitle("Great, Congratulation!!!");
                                 dialog.setMessage(tu);
-                                dialog.setPositiveButton("Tiếp", new DialogInterface.OnClickListener() {
+                                dialog.setPositiveButton("Next", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
