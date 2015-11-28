@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+
 public class BaiNghe1 extends AppCompatActivity {
 
     ImageView btn_stop, btn_prev, btn_play, btn_next, img_topic;
@@ -279,10 +280,10 @@ public class BaiNghe1 extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     isRepeat = true;
-                    Toast.makeText(BaiNghe1.this, "Phát lại bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "Phát l?i bài này", Toast.LENGTH_SHORT).show();
                 } else {
                     isRepeat = false;
-                    Toast.makeText(BaiNghe1.this, "Hủy phát lại bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "H?y phát l?i bài này", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -310,16 +311,16 @@ public class BaiNghe1 extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(BaiNghe1.this, "Bạn đã thích bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "B?n dă thích bài này", Toast.LENGTH_SHORT).show();
                     isFavorite = true;
                 } else {
-                    Toast.makeText(BaiNghe1.this, "Bạn đã hủy thích bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "B?n dă h?y thích bài này", Toast.LENGTH_SHORT).show();
                     isFavorite = false;
                 }
             }
         });
 
-        //xử lí tua bài hát
+        //x? lí tua bài hát
         btn_next.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -337,7 +338,7 @@ public class BaiNghe1 extends AppCompatActivity {
             }
         });
 
-        //xử lí tua lùi bài hát
+        //x? lí tua lùi bài hát
         btn_prev.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -364,7 +365,7 @@ public class BaiNghe1 extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, ListListener.class);
+        Intent intent = new Intent(BaiNghe1.this, ListListener.class);
         startActivity(intent);
         song.pause();
     }

@@ -1,6 +1,8 @@
 package com.example.hoang.revproject.Activity;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         HomeItem item1 = new HomeItem("My Vocabulary", R.drawable.words_icon);
         HomeItem item2 = new HomeItem("Listening", R.drawable.listen_icon);
         HomeItem item3 = new HomeItem("Games", R.drawable.games_icon);
-        HomeItem item4 = new HomeItem("Alarm", R.drawable.alarms_icon);
+        HomeItem item4 = new HomeItem("Alarms", R.drawable.alarms_icon);
 
         arr.add(item1);
         arr.add(item2);
@@ -137,7 +139,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setTitle("Really Exit?")
+                    .setMessage("Are you sure you want to exit?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainActivity.super.onBackPressed();
+                        }
+                    }).create().show();
         }
     }
 
