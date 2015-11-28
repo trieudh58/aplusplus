@@ -48,9 +48,4 @@ public class  ListListener extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-    public void onBackPressed() {
-        Intent intent = new Intent(ListListener.this, MainActivity.class);
-        startActivity(intent);
-    }
-
 }

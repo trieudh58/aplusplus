@@ -365,8 +365,7 @@ public class BaiNghe1 extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(BaiNghe1.this, ListListener.class);
-        startActivity(intent);
+        finish();
         song.pause();
     }
 
