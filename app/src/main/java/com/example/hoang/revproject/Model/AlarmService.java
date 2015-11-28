@@ -39,6 +39,10 @@ public class AlarmService extends Service {
             }
         }
 
+        if (!model.isRepeatingDay()){
+            model.isEnabled = false;
+        }
+
         if (position == -1){
             model.isEnabled = false;
         }else {

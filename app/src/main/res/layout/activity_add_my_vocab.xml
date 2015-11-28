@@ -22,7 +22,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your word's pronoun"
+            android:hint="Your word's example"
             android:id="@+id/editPronoun"
             android:textColor="@color/colorAccent"/>
     </android.support.design.widget.TextInputLayout>
