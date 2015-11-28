@@ -204,8 +204,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="50dp"
-                    android:text="..."
-                    android:background="@drawable/button_background"
+                    android:text=""
+                    android:background="@drawable/button_choose"
                     android:id="@+id/btnChooseWord"
                     android:textStyle="bold" />
                 <android.support.design.widget.TextInputLayout

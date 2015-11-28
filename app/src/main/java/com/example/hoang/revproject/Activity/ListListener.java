@@ -18,7 +18,7 @@ import com.example.hoang.revproject.R;
 
 import java.util.List;
 
-public class ListListener extends AppCompatActivity {
+public class  ListListener extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ListeningAdapter adapter;

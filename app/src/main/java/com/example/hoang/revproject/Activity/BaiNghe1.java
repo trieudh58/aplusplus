@@ -45,6 +45,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+?android.content.Intent;
+
 public class BaiNghe1 extends AppCompatActivity {
 
     ImageView btn_stop, btn_prev, btn_play, btn_next, img_topic;
@@ -65,9 +67,12 @@ public class BaiNghe1 extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     ListeningModel model;
     private String prefname = "my_data";
+    private static final String KEY_REPEAT = "keyRepeat";
+    private static final String KEY_INDEX = "keyIndex";
+    private static final String KEY_PLAY = "keyPlay";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_bai_nghe1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -119,12 +124,64 @@ public class BaiNghe1 extends AppCompatActivity {
         img_topic = (ImageView) findViewById(R.id.Image_Topic);
         txt_tran = (TextView) findViewById(R.id.Txt_Transcrip);
         txt_topic = (TextView) findViewById(R.id.Txt_Topic);
-
+        seekBar = (SeekBar) findViewById(R.id.SeekBar);
         txt_topic.setText(model.getTitle());
+        String soundName = model.getAudio().toLowerCase();
+        int resID = getResources().getIdentifier(soundName, "raw", getPackageName());
+        song = MediaPlayer.create(this, resID);
+        txt_start = (TextView) findViewById(R.id.TxTStart);
+        txt_end = (TextView) findViewById(R.id.TxtEnd);
+        txt_topic = (TextView) findViewById(R.id.Txt_Topic);
 
         int imageResource = this.getResources().getIdentifier(model.getImage(), null, this.getPackageName());
         final Drawable res = this.getResources().getDrawable(imageResource);
         img_topic.setImageDrawable(res);
+
+        if(savedInstanceState != null){
+            if (savedInstanceState.getBoolean(KEY_PLAY)){
+                Time_end = song.getDuration();
+                song.start();
+                song.seekTo((int) savedInstanceState.getFloat(KEY_INDEX));
+
+                long PhutKetThuc = TimeUnit.MILLISECONDS.toMinutes((long) Time_end);
+                long GiayKetThuc = TimeUnit.MILLISECONDS.toSeconds((long) Time_end) - PhutKetThuc * 60;
+                if (GiayKetThuc < 10) {
+                    txt_end.setText(String.format("%d:0%d", PhutKetThuc, GiayKetThuc));
+                } else {
+                    txt_end.setText(String.format("%d:%d", PhutKetThuc, GiayKetThuc));
+                }
+                btn_reapeat.setChecked(savedInstanceState.getBoolean(KEY_REPEAT));
+                seekBar.setProgress((int) savedInstanceState.getFloat(KEY_INDEX));
+                btn_play.setImageResource(R.drawable.btn_pause);
+                OnProgressChanged(seekBar);
+                updateProgressBar();
+                song.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        if (savedInstanceState.getBoolean(KEY_REPEAT) == false) {
+                            song.seekTo(0);
+                            song.pause();
+                            btn_play.setImageResource(R.drawable.btn_play);
+                        } else {
+                            song.seekTo(0);
+                            song.start();
+                        }
+                    }
+                });
+            }else {
+                btn_reapeat.setChecked(savedInstanceState.getBoolean(KEY_REPEAT));
+                song.seekTo((int) savedInstanceState.getFloat(KEY_INDEX));
+
+                long PhutKetThuc = TimeUnit.MILLISECONDS.toMinutes((long) Time_end);
+                long GiayKetThuc = TimeUnit.MILLISECONDS.toSeconds((long) Time_end) - PhutKetThuc * 60;
+                if (GiayKetThuc < 10) {
+                    txt_end.setText(String.format("%d:0%d", PhutKetThuc, GiayKetThuc));
+                } else {
+                    txt_end.setText(String.format("%d:%d", PhutKetThuc, GiayKetThuc));
+                }
+                seekBar.setProgress((int) savedInstanceState.getFloat(KEY_INDEX));
+            }
+        }
 
 
         actionModeCallback = new ActionMode.Callback() {
@@ -166,28 +223,11 @@ public class BaiNghe1 extends AppCompatActivity {
             }
         };
 
-        txt_start = (TextView) findViewById(R.id.TxTStart);
-        txt_end = (TextView) findViewById(R.id.TxtEnd);
-        txt_topic = (TextView) findViewById(R.id.Txt_Topic);
-        seekBar = (SeekBar) findViewById(R.id.SeekBar);
-        String soundName = model.getAudio().toLowerCase();
-        int resID = getResources().getIdentifier(soundName, "raw", getPackageName());
-        song = MediaPlayer.create(this, resID);
         Myhandler = new Handler();
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             txt_tran.setText(model.getTranscript(), TextView.BufferType.SPANNABLE);
             txt_tran.setVisibility(View.VISIBLE);
-            Time_end = song.getDuration();
-            long PhutKetThuc = TimeUnit.MILLISECONDS.toMinutes((long) Time_end);
-            long GiayKetThuc = TimeUnit.MILLISECONDS.toSeconds((long) Time_end) - PhutKetThuc * 60;
-            if (GiayKetThuc < 10) {
-                txt_end.setText(String.format("%d:0%d", PhutKetThuc, GiayKetThuc));
-            } else {
-                txt_end.setText(String.format("%d:%d", PhutKetThuc, GiayKetThuc));
-            }
-            OnProgressChanged(seekBar);
-            updateProgressBar();
         }
 
         Time_end = song.getDuration();
@@ -227,12 +267,6 @@ public class BaiNghe1 extends AppCompatActivity {
             }
         });
 
-        if (savedInstanceState != null) {
-            int temp = song.getCurrentPosition();
-//            current = savedInstanceState.getInt(temp);
-        }
-
-
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,10 +281,10 @@ public class BaiNghe1 extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     isRepeat = true;
-                    Toast.makeText(BaiNghe1.this, "Phát lại bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "Phát l?i bài này", Toast.LENGTH_SHORT).show();
                 } else {
                     isRepeat = false;
-                    Toast.makeText(BaiNghe1.this, "Hủy phát lại bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "H?y phát l?i bài này", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -278,16 +312,16 @@ public class BaiNghe1 extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(BaiNghe1.this, "Bạn đã thích bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "B?n dă thích bài này", Toast.LENGTH_SHORT).show();
                     isFavorite = true;
                 } else {
-                    Toast.makeText(BaiNghe1.this, "Bạn đã hủy thích bài này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiNghe1.this, "B?n dă h?y thích bài này", Toast.LENGTH_SHORT).show();
                     isFavorite = false;
                 }
             }
         });
 
-        //xử lí tua bài hát
+        //x? lí tua bài hát
         btn_next.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -305,7 +339,7 @@ public class BaiNghe1 extends AppCompatActivity {
             }
         });
 
-        //xử lí tua lùi bài hát
+        //x? lí tua lùi bài hát
         btn_prev.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -332,7 +366,7 @@ public class BaiNghe1 extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, ListListener.class);
+        Intent intent = new Intent(BaiNghe1.this, ListListener.class);
         startActivity(intent);
         song.pause();
     }
@@ -368,6 +402,7 @@ public class BaiNghe1 extends AppCompatActivity {
         @Override
         public void run() {
             Time_start = song.getCurrentPosition();
+            savingPreference();
             long PhutBatDau = TimeUnit.MILLISECONDS.toMinutes((long) Time_start);
             long GiayBatDau = TimeUnit.MILLISECONDS.toSeconds((long) Time_start) - PhutBatDau * 60;
             if (GiayBatDau < 10) {
@@ -462,6 +497,30 @@ public class BaiNghe1 extends AppCompatActivity {
         return (Integer[]) indices.toArray(new Integer[0]);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_REPEAT, btn_reapeat.isChecked());
+        outState.putBoolean(KEY_PLAY, song.isPlaying());
+        outState.putFloat(KEY_INDEX, restoringPreference());
+        song.pause();
+    }
+
+    public void savingPreference(){
+        SharedPreferences sharedPreferences = getSharedPreferences(prefname, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putFloat("index", song.getCurrentPosition());
+        Log.d("LISTENING", song.getCurrentPosition()+ "");
+        editor.commit();
+    }
+
+    public float restoringPreference(){
+        SharedPreferences sharedPreferences = getSharedPreferences(prefname, MODE_PRIVATE);
+
+        float index = sharedPreferences.getFloat("index", 0);
+        return index;
+    }
 
 
 }
