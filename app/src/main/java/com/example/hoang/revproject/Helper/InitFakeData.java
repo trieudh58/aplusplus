@@ -229,7 +229,7 @@ public class InitFakeData {
                 "\n" +
                 "I’m Jim Tedder.", "@drawable/bai3", "bai3");
 
-        ListeningModel listeningMode4 = new ListeningModel("President Obama Calls for Lower Tensions in South China Sea", "U.S. President Barack Obama said “bold measures” are needed to ease growing tensions over the South China Sea.\n" +
+        ListeningModel listeningMode4 = new ListeningModel("President Obama Calls for Lower Tensions", "U.S. President Barack Obama said “bold measures” are needed to ease growing tensions over the South China Sea.\n" +
                 "\n" +
                 "Six governments with shores on the South China Sea say they control parts of it.\n" +
                 "\n" +

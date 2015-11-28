@@ -53,8 +53,9 @@
             android:enabled="true" >
         </service>
 
-        <activity android:name=".Activity.AlarmScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".Activity.AlarmScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity android:name=".Activity.SettingsActivity" >
         </activity>
@@ -100,8 +101,13 @@
         <activity
             android:name=".Activity.TroChoi"
             android:label="@string/title_activity_tro_choi"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Activity.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

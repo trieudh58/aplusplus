@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">RevProject</string>
+    <string name="app_name">REV</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_alarm_list">AlarmListActivity</string>
-    <string name="title_activity_alarm_detail">AlarmDetailActivity</string>
+    <string name="title_activity_alarm_list">Alarms</string>
+    <string name="title_activity_alarm_detail">Set Alarm</string>
 
     <string name="details_alarm_name">Alarm Name</string>
     <string name="details_sunday">Su</string>
@@ -24,11 +24,12 @@
     <string name="alarm_screen_name">Alarm!</string>
     <string name="alarm_screen_button">Wake Up</string>
     <string name="alarm_screen_time">00 : 00</string>
-    <string name="title_activity_show_word">ShowWordActivity</string>
-    <string name="title_activity_my_vocabulary">MyVocabulary</string>
-    <string name="title_activity_list_listener">ListListener</string>
-    <string name="title_activity_bai_nghe1">BaiNghe1</string>
-    <string name="title_activity_history">HistoryActivity</string>
+    <string name="title_activity_show_word">Your Word Today</string>
+    <string name="title_activity_my_vocabulary">My Vocabulary</string>
+    <string name="title_activity_list_listener">List Listening</string>
+    <string name="title_activity_bai_nghe1">Listening</string>
+    <string name="title_activity_history">Vocabulary History</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    <string name="title_activity_tro_choi">TroChoi</string>
+    <string name="title_activity_tro_choi">Games</string>
+    <string name="title_activity_about">A++ Team</string>
 </resources>
