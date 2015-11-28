@@ -460,7 +460,7 @@ public class BaiNghe1 extends AppCompatActivity {
             start = end + 1;
         }
 
-        textView.setHighlightColor(Color.BLUE);
+        textView.setHighlightColor(getResources().getColor(R.color.colorPrimary));
     }
 
     private ClickableSpan getClickableSpan() {

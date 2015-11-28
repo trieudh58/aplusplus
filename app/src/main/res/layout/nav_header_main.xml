@@ -10,7 +10,7 @@
 
     <com.mikhaellopez.circularimageview.CircularImageView android:layout_width="60dp" android:layout_height="60dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/thienhan" android:id="@+id/imageView" />
+        android:src="@drawable/app_icon" android:id="@+id/imageView" />
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing" android:text="A++ Team"

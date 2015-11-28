@@ -157,7 +157,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
 
     }
-    public String onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("MyAdapter", "onActivityResult");
         VocabularyModel model = arrVocab.get(index);
         String word1 = "";
@@ -179,7 +179,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
                 break;
         }
         Toast.makeText(mContext, "You just said " + word1, Toast.LENGTH_SHORT).show();
-        return word1;
     }
 
 }
