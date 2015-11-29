@@ -63,7 +63,6 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentLeft="true"
-                android:textColor="@color/colorAccent"
                 android:textSize="15pt"
                 android:textStyle="bold"/>
             <ImageView
