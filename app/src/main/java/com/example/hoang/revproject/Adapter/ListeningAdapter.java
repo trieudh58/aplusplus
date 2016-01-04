@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.example.hoang.revproject.Activity.ShowWordActivity;
 import com.example.hoang.revproject.Helper.ItemTouchHelperViewHolder;
 import com.example.hoang.revproject.Model.AlarmDBHelper;
 import com.example.hoang.revproject.Model.ListeningModel;
+import com.example.hoang.revproject.Model.MyVocabularyModel;
 import com.example.hoang.revproject.Model.VocabularyModel;
 import com.example.hoang.revproject.R;
 
@@ -28,8 +31,9 @@ import java.util.List;
 /**
  * Created by hoang on 11/23/2015.
  */
-public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.ListeningViewHolder>{
+public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.ListeningViewHolder> implements Filterable{
 
+    private List<ListeningModel> orig;
     private Context mContext;
     private List<ListeningModel> listeningModels = new ArrayList<ListeningModel>();
     private AlarmDBHelper dbHelper;
@@ -99,6 +103,35 @@ public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.List
         public void onItemClear() {
             itemView.setBackgroundColor(0);
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final List<ListeningModel> results = new ArrayList<ListeningModel>();
+                if (orig == null)
+                    orig = listeningModels;
+                if (constraint != null){
+                    if(orig != null & orig.size() > 0){
+                        for (final ListeningModel g : orig){
+                            if(g.getTitle().toLowerCase().contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                listeningModels = (ArrayList<ListeningModel>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 }
